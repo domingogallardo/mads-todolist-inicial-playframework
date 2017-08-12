@@ -12,18 +12,18 @@ public class UsuarioTest {
    public void testCrearUsuario() throws ParseException {
       // Los parámetros del constructor son los campos obligatorios
       Usuario usuario = new Usuario("juangutierrez", "juangutierrez@gmail.com");
-      usuario.nombre = "Juan";
-      usuario.apellidos = "Gutierrez";
-      usuario.password = "123456789";
+      usuario.setNombre("Juan");
+      usuario.setApellidos("Gutierrez");
+      usuario.setPassword("123456789");
 
       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-      usuario.fechaNacimiento = sdf.parse("1997-02-20");
+      usuario.setFechaNacimiento(sdf.parse("1997-02-20"));
 
-      assertEquals("juangutierrez", usuario.login);
-      assertEquals("juangutierrez@gmail.com", usuario.email);
-      assertEquals("Juan", usuario.nombre);
-      assertEquals("Gutierrez", usuario.apellidos);
-      assertEquals("123456789", usuario.password);
-      assertTrue(usuario.fechaNacimiento.compareTo(sdf.parse("1997-02-20")) == 0);
+      assertEquals("juangutierrez", usuario.getLogin());
+      assertEquals("juangutierrez@gmail.com", usuario.getEmail());
+      assertEquals("Juan", usuario.getNombre());
+      assertEquals("Gutierrez", usuario.getApellidos());
+      assertEquals("123456789", usuario.getPassword());
+      assertTrue(usuario.getFechaNacimiento().compareTo(sdf.parse("1997-02-20")) == 0);
    }
 }
