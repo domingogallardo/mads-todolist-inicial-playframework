@@ -11,7 +11,10 @@ public class JPAUsuarioRepository implements UsuarioRepository {
    // https://www.playframework.com/documentation/2.5.x/JavaJPA#Using-play.db.jpa.JPAApi
    JPAApi jpaApi;
 
-   // Para usar el JPAUsuarioRepository hay que proporcionar una JPAApi
+   // Para usar el JPAUsuarioRepository hay que proporcionar una JPAApi.
+   // La anotación Inject hace que Play proporcione el JPAApi cuando se lance
+   // la aplicación.
+   @Inject
    public JPAUsuarioRepository(JPAApi api) {
       this.jpaApi = api;
    }

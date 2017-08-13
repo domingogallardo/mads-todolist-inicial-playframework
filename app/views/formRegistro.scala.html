@@ -1,0 +1,19 @@
+@(registroForm: Form[Registro], mensaje: String)
+@main("Registro usuario") {
+   @if(mensaje != "") {
+      <div class="alert alert-danger">
+          @mensaje
+      </div>
+   }
+   <h1>Registrar nuevo usuario</h1>
+   @helper.form(action = routes.UsuarioController.registroUsuario()) {
+      <fieldset>
+         @helper.inputText(registroForm("login"), '_label -> "Login")
+         @helper.inputText(registroForm("email"), '_label -> "Email")
+         @helper.inputPassword(registroForm("password"), '_label -> "Contraseña")
+         @helper.inputPassword(registroForm("confirmacion"), '_label -> "Repite contraseña")
+      </fieldset>
+      <p>
+         <button type="submit" class="btn btn-primary">Registro</button>
+      }
+   }

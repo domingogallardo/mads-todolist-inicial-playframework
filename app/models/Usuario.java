@@ -1,5 +1,8 @@
 package models;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+ 
 import java.util.Date;
 import javax.persistence.*;
 
@@ -81,5 +84,16 @@ public class Usuario {
 
    public void setFechaNacimiento(Date fechaNacimiento) {
       this.fechaNacimiento = fechaNacimiento;
+   }
+
+   public String toString() {
+      String fechaStr = null;
+      if (fechaNacimiento != null) {
+         SimpleDateFormat formateador = new SimpleDateFormat("dd-MM-yyyy");
+         fechaStr = formateador.format(fechaNacimiento);
+      }
+      return String.format("Usuario id: %s login: %s password: %s nombre: %s " +
+                      "apellidos: %s e-mail: %s fechaNacimiento: %s",
+                      id, login, password, nombre, apellidos, email, fechaNacimiento);
    }
 }
