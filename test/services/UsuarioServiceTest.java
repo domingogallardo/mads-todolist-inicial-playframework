@@ -65,4 +65,25 @@ public class UsuarioServiceTest {
       assertNotNull(usuario);
       assertEquals((Long) 1000L, usuario.getId());
    }
+
+
+   //Test 8: loginUsuarioExistenteTest
+   @Test
+   public void loginUsuarioExistenteTest() {
+      UsuarioRepository repository = new JPAUsuarioRepository(jpaApi);
+      UsuarioService usuarioService = new UsuarioService(repository);
+      // En la BD de prueba usuarios_dataset se ha cargado el usuario juangutierrez
+      Usuario usuario = usuarioService.login("juangutierrez", "123456789");
+      assertEquals((Long) 1000L, usuario.getId());
+   }
+
+   //Test 9: loginUsuarioNoExistenteTest
+   @Test
+   public void loginUsuarioNoExistenteTest() {
+      UsuarioRepository repository = new JPAUsuarioRepository(jpaApi);
+      UsuarioService usuarioService = new UsuarioService(repository);
+      // En la BD de prueba usuarios_dataset se ha cargado el usuario juangutierrez
+      Usuario usuario = usuarioService.login("juan", "123456789");
+      assertNull(usuario);
+   }
 }
