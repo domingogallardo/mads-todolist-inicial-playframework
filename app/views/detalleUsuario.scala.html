@@ -1,0 +1,15 @@
+@(usuario: Usuario)
+
+@main("Detalle de usuario") {
+   <h1>Detalle del usuario @usuario.getId()</h1>
+   <ul>
+      <li><strong>Login: </strong> @usuario.getLogin()</li>
+      <li><strong>Email: </strong> @usuario.getEmail()</li>
+      <li><strong>Nombre: </strong> @usuario.getNombre()</li>
+      <li><strong>Apellidos: </strong> @usuario.getApellidos()</li>
+      <li><strong>Fecha de nacimiento: </strong>
+            @if(usuario.getFechaNacimiento() != null) {
+                @usuario.getFechaNacimiento().format("dd-MM-yyyy")
+            }</li>
+   </ul>
+}

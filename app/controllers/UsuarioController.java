@@ -6,6 +6,7 @@ import views.html.*;
 import javax.inject.*;
 import play.data.Form;
 import play.data.FormFactory;
+import play.Logger;
 
 import services.UsuarioService;
 import models.Usuario;
@@ -59,5 +60,15 @@ public class UsuarioController extends Controller {
       if (usuario == null) {
          return notFound(formLogin.render(form, "Login y contraseña no existentes"));
       } else return ok(saludo.render("Logeado " + usuario.toString()));
+   }
+
+   public Result detalleUsuario(Long id) {
+      Usuario usuario = usuarioService.findUsuarioPorId(id);
+      if (usuario == null) {
+           return notFound("Usuario no encontrado");
+      } else {
+           Logger.debug("Encontrado usuario " + usuario.getId() + ": " + usuario.getLogin());
+           return ok(detalleUsuario.render(usuario));
+      }
    }
 }
