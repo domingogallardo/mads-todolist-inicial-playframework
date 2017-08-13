@@ -44,4 +44,20 @@ public class UsuarioController extends Controller {
       Usuario usuario = usuarioService.creaUsuario(datosRegistro.login, datosRegistro.email, datosRegistro.password);
       return ok(saludo.render("Creado " + usuario.toString()));
    }
+
+   public Result formularioLogin() {
+      return ok(formLogin.render(formFactory.form(Login.class),""));
+   }
+
+   public Result loginUsuario() {
+      Form<Login> form = formFactory.form(Login.class).bindFromRequest();
+      if (form.hasErrors()) {
+         return badRequest(formLogin.render(form, "Hay errores en el formulario"));
+      }
+      Login login = form.get();
+      Usuario usuario = usuarioService.login(login.username, login.password);
+      if (usuario == null) {
+         return notFound(formLogin.render(form, "Login y contraseña no existentes"));
+      } else return ok(saludo.render("Logeado " + usuario.toString()));
+   }
 }

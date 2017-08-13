@@ -15,6 +15,8 @@ GET     /message                    controllers.AsyncController.message
 GET     /saludo/:msg            controllers.UsuarioController.saludo(msg: String)
 GET     /registro               controllers.UsuarioController.formularioRegistro()
 POST    /registro               controllers.UsuarioController.registroUsuario()
+GET     /login                  controllers.UsuarioController.formularioLogin()
+POST    /login                  controllers.UsuarioController.loginUsuario()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
