@@ -33,6 +33,11 @@ public class UsuarioController extends Controller {
          return badRequest(formRegistro.render(form, "Hay errores en el formulario"));
       }
       Registro datosRegistro = form.get();
+
+      if (usuarioService.findUsuarioPorLogin(datosRegistro.login) != null) {
+         return badRequest(formRegistro.render(form, "Login ya existente: escoge otro"));
+      }
+
       if (!datosRegistro.password.equals(datosRegistro.confirmacion)) {
          return badRequest(formRegistro.render(form, "No coinciden la contraseña y la confirmación"));
       }
