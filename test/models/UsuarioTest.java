@@ -124,4 +124,12 @@ public class UsuarioTest {
       Usuario usuario = repository.findById(1000L);
       assertEquals("juangutierrez", usuario.getLogin());
    }
+
+   // Test 4: testFindUsuarioPorLogin
+   @Test
+   public void testFindUsuarioPorLogin() {
+      UsuarioRepository repository = new JPAUsuarioRepository(jpaApi);
+      Usuario usuario = repository.findByLogin("juangutierrez");
+      assertEquals((Long) 1000L, usuario.getId());
+   }
 }
