@@ -24,4 +24,10 @@ public class JPAUsuarioRepository implements UsuarioRepository {
          return usuario;
       });
    }
+
+   public Usuario findById(Long idUsuario) {
+      return jpaApi.withTransaction(entityManager -> {
+         return entityManager.find(Usuario.class, idUsuario);
+      });
+   }
 }

@@ -12,6 +12,13 @@ import play.Logger;
 
 import java.sql.*;
 
+import org.junit.*;
+import org.dbunit.*;
+import org.dbunit.dataset.*;
+import org.dbunit.dataset.xml.*;
+import org.dbunit.operation.*;
+import java.io.FileInputStream;
+
 import models.Usuario;
 import models.UsuarioRepository;
 import models.JPAUsuarioRepository;
@@ -34,6 +41,33 @@ public class UsuarioTest {
       // declarada en META-INF/persistence.xml y obtenemos el objeto
       // JPAApi
       jpaApi = JPA.createFor("memoryPersistenceUnit");
+   }
+
+
+   // Se ejecuta al antes de cada test
+   // Se insertan los datos de prueba en la tabla Usuarios de
+   // la BD "DBTest". La BD ya contiene una tabla de usuarios
+   // porque la ha creado JPA al tener la propiedad
+   // hibernate.hbm2ddl.auto (en META-INF/persistence.xml) el valor update
+   // Los datos de prueba se definen en el fichero
+   // test/resources/usuarios_dataset.xml
+   @Before
+   public void initData() throws Exception {
+      JndiDatabaseTester databaseTester = new JndiDatabaseTester("DBTest");
+      IDataSet initialDataSet = new FlatXmlDataSetBuilder().build(new
+      FileInputStream("test/resources/usuarios_dataset.xml"));
+      databaseTester.setDataSet(initialDataSet);
+      // Definimos como operación TearDown DELETE_ALL para que se
+      // borren todos los datos de las tablas del dataset
+      // (el valor por defecto DbUnit es DatabaseOperation.NONE)
+      databaseTester.setTearDownOperation(DatabaseOperation.DELETE_ALL);
+
+      // Definimos como operación SetUp CLEAN_INSERT, que hace un
+      // DELETE_ALL de todas las tablase del dataset, seguido por un
+      // INSERT. (http://dbunit.sourceforge.net/components.html)
+      // Es lo que hace DbUnit por defecto, pero así queda más claro.
+      databaseTester.setSetUpOperation(DatabaseOperation.CLEAN_INSERT);
+      databaseTester.onSetup();
    }
 
    // Test 1: testCrearUsuario
@@ -81,5 +115,13 @@ public class UsuarioTest {
          return rs.getString("Nombre");
       });
       return nombre;
+   }
+
+   // Test 3: testFindUsuarioPorId
+   @Test
+   public void testFindUsuarioPorId() {
+      UsuarioRepository repository = new JPAUsuarioRepository(jpaApi);
+      Usuario usuario = repository.findById(1000L);
+      assertEquals("juangutierrez", usuario.getLogin());
    }
 }
