@@ -1,55 +1,44 @@
-# Play Java Starter
+# Práctica asignatura MADS
 
-This is a starter application that shows how Play works.  Please see the documentation at https://www.playframework.com/documentation/latest/Home for more details.
+Realizada por Domingo Gallardo.
 
-## Running
+La práctica consiste en un proyecto implementado en [Play Framework 2.5](https://www.playframework.com/documentation/2.5.x/Home) para gestionar las tareas pendientes de un conjunto de usuarios de una empresa.
 
-Run this using [sbt](http://www.scala-sbt.org/).  If you downloaded this project from http://www.playframework.com/download then you'll find a prepackaged version of sbt in the project directory:
+Aquí hay una breve descripción de cómo lanzar la práctica. La documentación
+completa se encuentra en el directorio `docs`.
+
+
+## Cómo ejecutar el proyecto
+
+### Usando `sbt`
+
+Se trata de una aplicación Play y necesitas [sbt](http://www.scala-sbt.org/).
+
+Descarga el proyecto y, dentro del directorio, ejecuta:
 
 ```
 sbt run
 ```
 
-And then go to http://localhost:9000 to see the running web application.
+Este comando descargará todas las dependencias (tarda bastante) y pondrá
+en marcha el servidor web con la aplicación. Luego ve a <http:localhost:9000>
+para ver la aplicación web funcionando.
 
-## Controllers
+### Usando una imagen Docker
 
-There are several demonstration files available in this template.
+También es posible probar el proyecto usando una imagen de Docker.
+Descarga el proyecto y, dentro del directorio, ejecuta:
 
-- HomeController.java:
+```
+docker run -it --rm -v ${PWD}:/code -p 80:9000 domingogallardo/playframework
+```
 
-  Shows how to handle simple HTTP requests.
+Esto lanza una imagen docker que contiene todas las dependencias necesarias
+para ejecutar el proyecto. La imagen docker tiene como comando principal `sbt`,
+y lo único que hay que hacer es escribir `run`:
 
-- AsyncController.java:
+```
+[mads-todolist-2017] $ run
+```
 
-  Shows how to do asynchronous programming when handling a request.
-
-- CountController.java:
-
-  Shows how to inject a component into a controller and use the component when
-  handling requests.
-
-## Components
-
-- Module.java:
-
-  Shows how to use Guice to bind all the components needed by your application.
-
-- Counter.java:
-
-  An example of a component that contains state, in this case a simple counter.
-
-- ApplicationTimer.java:
-
-  An example of a component that starts when the application starts and stops
-  when the application stops.
-
-## Filters
-
-- Filters.java:
-
-  Creates the list of HTTP filters used by your application.
-
-- ExampleFilter.java
-
-  A simple filter that adds a header to every response.
+Podrás acceder a la aplicación web en el ordenador host en <http:localhost>.
