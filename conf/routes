@@ -17,6 +17,7 @@ GET     /registro               controllers.UsuarioController.formularioRegistro
 POST    /registro               controllers.UsuarioController.registroUsuario()
 GET     /login                  controllers.UsuarioController.formularioLogin()
 POST    /login                  controllers.UsuarioController.loginUsuario()
+GET     /logout                 controllers.UsuarioController.logout()
 GET     /usuarios/:id           controllers.UsuarioController.detalleUsuario(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path

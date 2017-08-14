@@ -59,16 +59,43 @@ public class UsuarioController extends Controller {
       Usuario usuario = usuarioService.login(login.username, login.password);
       if (usuario == null) {
          return notFound(formLogin.render(form, "Login y contraseña no existentes"));
-      } else return ok(saludo.render("Logeado " + usuario.toString()));
+      } else {
+         // Añadimos el id del usuario a la clave `connected` de
+         // la sesión de Play
+         // https://www.playframework.com/documentation/2.5.x/JavaSessionFlash
+         session("connected", usuario.getId().toString());
+         return ok(saludo.render("Logeado " + usuario.toString()));
+      }
+   }
+
+   public Result logout() {
+      String connectedUserStr = session("connected");
+      if (connectedUserStr != null) {
+         session().remove("connected");
+         return ok(saludo.render("Adios usuario " + connectedUserStr));
+      } else {
+         return ok(saludo.render("No hay ningún usuario conectado"));
+      }
    }
 
    public Result detalleUsuario(Long id) {
-      Usuario usuario = usuarioService.findUsuarioPorId(id);
-      if (usuario == null) {
-           return notFound("Usuario no encontrado");
+      String connectedUserStr = session("connected");
+      Logger.debug("Usuario conectado: " + connectedUserStr);
+      if (connectedUserStr == null) {
+         return unauthorized("Lo siento, no estás conectado");
       } else {
-           Logger.debug("Encontrado usuario " + usuario.getId() + ": " + usuario.getLogin());
-           return ok(detalleUsuario.render(usuario));
+         Long connectedUser =  Long.valueOf(connectedUserStr);
+         if (connectedUser != id) {
+            return unauthorized("Lo siento, no estás autorizado");
+         } else {
+            Usuario usuario = usuarioService.findUsuarioPorId(id);
+            if (usuario == null) {
+               return notFound("Usuario no encontrado");
+            } else {
+               Logger.debug("Encontrado usuario " + usuario.getId() + ": " + usuario.getLogin());
+               return ok(detalleUsuario.render(usuario));
+            }
+         }
       }
    }
 }
