@@ -132,4 +132,27 @@ public class UsuarioTest {
       Usuario usuario = repository.findByLogin("juangutierrez");
       assertEquals((Long) 1000L, usuario.getId());
    }
+
+   // Test #12: testEqualsUsuariosConId
+   @Test
+   public void testEqualsUsuariosConId() {
+      Usuario usuario1 = new Usuario("juangutierrez", "juangutierrez@gmail.com");
+      Usuario usuario2 = new Usuario("mariafernandez", "mariafernandez@gmail.com");
+      Usuario usuario3 = new Usuario("antoniolopez", "antoniolopez@gmail.com");
+      usuario1.setId(1L);
+      usuario2.setId(1L);
+      usuario3.setId(2L);
+      assertEquals(usuario1, usuario2);
+      assertNotEquals(usuario1, usuario3);
+   }
+
+   // Test #13: testEqualsUsuariosSinId
+   @Test
+   public void testEqualsUsuariosSinId() {
+      Usuario usuario1 = new Usuario("mariafernandez", "mariafernandez@gmail.com");
+      Usuario usuario2 = new Usuario("mariafernandez", "mariafernandez@gmail.com");
+      Usuario usuario3 = new Usuario("antoniolopez", "antoniolopez@gmail.com");
+      assertEquals(usuario1, usuario2);
+      assertNotEquals(usuario1, usuario3);
+   }
 }
