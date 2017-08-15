@@ -19,4 +19,10 @@ public class JPATareaRepository implements TareaRepository {
          return tarea;
       });
    }
+
+   public Tarea findById(Long idTarea) {
+      return jpaApi.withTransaction(entityManager -> {
+         return entityManager.find(Tarea.class, idTarea);
+      });
+   }
 }
