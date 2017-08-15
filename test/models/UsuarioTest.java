@@ -57,17 +57,13 @@ public class UsuarioTest {
       IDataSet initialDataSet = new FlatXmlDataSetBuilder().build(new
       FileInputStream("test/resources/usuarios_dataset.xml"));
       databaseTester.setDataSet(initialDataSet);
-      // Definimos como operación TearDown DELETE_ALL para que se
-      // borren todos los datos de las tablas del dataset
-      // (el valor por defecto DbUnit es DatabaseOperation.NONE)
-      databaseTester.setTearDownOperation(DatabaseOperation.DELETE_ALL);
-
       // Definimos como operación SetUp CLEAN_INSERT, que hace un
       // DELETE_ALL de todas las tablase del dataset, seguido por un
       // INSERT. (http://dbunit.sourceforge.net/components.html)
       // Es lo que hace DbUnit por defecto, pero así queda más claro.
       databaseTester.setSetUpOperation(DatabaseOperation.CLEAN_INSERT);
       databaseTester.onSetup();
+      
    }
 
    // Test 1: testCrearUsuario
@@ -107,12 +103,12 @@ public class UsuarioTest {
 
    private String getNombreFromUsuarioDB(Long usuarioId) {
       String nombre = db.withConnection(connection -> {
-         String selectStatement = "SELECT Nombre FROM Usuario WHERE id = ? ";
+         String selectStatement = "SELECT NOMBRE FROM USUARIO WHERE ID = ? ";
          PreparedStatement prepStmt = connection.prepareStatement(selectStatement);
          prepStmt.setLong(1, usuarioId);
          ResultSet rs = prepStmt.executeQuery();
          rs.next();
-         return rs.getString("Nombre");
+         return rs.getString("NOMBRE");
       });
       return nombre;
    }
@@ -131,5 +127,28 @@ public class UsuarioTest {
       UsuarioRepository repository = new JPAUsuarioRepository(jpaApi);
       Usuario usuario = repository.findByLogin("juangutierrez");
       assertEquals((Long) 1000L, usuario.getId());
+   }
+
+   // Test #12: testEqualsUsuariosConId
+   @Test
+   public void testEqualsUsuariosConId() {
+      Usuario usuario1 = new Usuario("juangutierrez", "juangutierrez@gmail.com");
+      Usuario usuario2 = new Usuario("mariafernandez", "mariafernandez@gmail.com");
+      Usuario usuario3 = new Usuario("antoniolopez", "antoniolopez@gmail.com");
+      usuario1.setId(1L);
+      usuario2.setId(1L);
+      usuario3.setId(2L);
+      assertEquals(usuario1, usuario2);
+      assertNotEquals(usuario1, usuario3);
+   }
+
+   // Test #13: testEqualsUsuariosSinId
+   @Test
+   public void testEqualsUsuariosSinId() {
+      Usuario usuario1 = new Usuario("mariafernandez", "mariafernandez@gmail.com");
+      Usuario usuario2 = new Usuario("mariafernandez", "mariafernandez@gmail.com");
+      Usuario usuario3 = new Usuario("antoniolopez", "antoniolopez@gmail.com");
+      assertEquals(usuario1, usuario2);
+      assertNotEquals(usuario1, usuario3);
    }
 }
