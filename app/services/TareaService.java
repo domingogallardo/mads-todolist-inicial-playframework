@@ -31,4 +31,13 @@ public class TareaService {
       Collections.sort(tareas, (a, b) -> a.getId() < b.getId() ? -1 : a.getId() == b.getId() ? 0 : 1);
       return tareas;
    }
+
+   public Tarea nuevaTarea(Long idUsuario, String titulo) {
+      Usuario usuario = usuarioRepository.findById(idUsuario);
+      if (usuario == null) {
+         throw new TareaServiceException("Usuario no existente");
+      }
+      Tarea tarea = new Tarea(usuario, titulo);
+      return tareaRepository.add(tarea);
+   }
 }

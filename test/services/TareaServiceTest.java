@@ -71,4 +71,12 @@ public class TareaServiceTest {
       TareaService tareaService = newTareaService();
       List<Tarea> tareas = tareaService.allTareasUsuario(1001L);
    }
+
+   // Test #21: nuevaTareaUsuario
+   @Test
+   public void nuevaTareaUsuario() {
+      TareaService tareaService = newTareaService();
+      tareaService.nuevaTarea(1000L, "Pagar el alquiler");
+      assertEquals(3, tareaService.allTareasUsuario(1000L).size());
+   }
 }
