@@ -1,0 +1,28 @@
+@(tareas: List[Tarea], usuario: Usuario, mensaje: String)
+@main("Tareas del usuario @usuario.getLogin()") {
+
+    <h2> Listado de tareas de @usuario.getLogin()</h2>
+
+    <table class="table table-striped">
+        <tr>
+            <th>Tareas</th>
+        </tr>
+    @for(tarea <- tareas) {
+        <tr>
+            <td>@tarea.getTitulo()</td>
+        </tr>
+      }
+
+      <tr>
+          <td><a href="@routes.GestionTareasController.formularioNuevaTarea(usuario.getId())">
+              <span class="glyphicon glyphicon-plus"/></a></td>
+      </tr>
+
+  </table>
+
+  @if(mensaje != null) {
+      <div class="alert alert-success">
+          @mensaje
+      </div>
+  }
+}
