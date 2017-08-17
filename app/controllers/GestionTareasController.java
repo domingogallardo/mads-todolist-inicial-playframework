@@ -8,6 +8,8 @@ import play.data.Form;
 import play.data.FormFactory;
 import play.Logger;
 
+import java.util.List;
+
 import services.UsuarioService;
 import services.TareaService;
 import models.Usuario;
@@ -48,8 +50,22 @@ public class GestionTareasController extends Controller {
          }
          Tarea tarea = tareaForm.get();
          tareaService.nuevaTarea(idUsuario, tarea.getTitulo());
-         int numTareas = tareaService.allTareasUsuario(idUsuario).size();
-         return ok(saludo.render("Total tareas: " + numTareas));
+         flash("aviso", "La tarea se ha grabado correctamente");
+         return redirect(controllers.routes.GestionTareasController.listaTareas(idUsuario));
+      }
+   }
+
+   @Security.Authenticated(ActionAuthenticator.class)
+   public Result listaTareas(Long idUsuario) {
+      String connectedUserStr = session("connected");
+      Long connectedUser =  Long.valueOf(connectedUserStr);
+      if (connectedUser != idUsuario) {
+         return unauthorized("Lo siento, no estás autorizado");
+      } else {
+         String aviso = flash("aviso");
+         Usuario usuario = usuarioService.findUsuarioPorId(idUsuario);
+         List<Tarea> tareas = tareaService.allTareasUsuario(idUsuario);
+         return ok(listaTareas.render(tareas, usuario, aviso));
       }
    }
 }
