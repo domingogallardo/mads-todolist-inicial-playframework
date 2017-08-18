@@ -68,4 +68,14 @@ public class GestionTareasController extends Controller {
          return ok(listaTareas.render(tareas, usuario, aviso));
       }
    }
+
+   @Security.Authenticated(ActionAuthenticator.class)
+   public Result formularioEditaTarea(Long idTarea) {
+      Tarea tarea = tareaService.obtenerTarea(idTarea);
+      if (tarea == null) {
+         return notFound("Tarea no encontrada");
+      } else {
+         return ok(saludo.render("Tarea encontrada: " + tarea.getTitulo()));
+      }
+   }
 }

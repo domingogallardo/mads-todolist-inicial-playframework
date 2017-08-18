@@ -6,16 +6,20 @@
     <table class="table table-striped">
         <tr>
             <th>Tareas</th>
+            <th>Acción</th>
         </tr>
     @for(tarea <- tareas) {
         <tr>
             <td>@tarea.getTitulo()</td>
+            <td><a href="@routes.GestionTareasController.formularioEditaTarea(tarea.getId())">
+                <span class="glyphicon glyphicon-pencil"></span></td>
         </tr>
       }
 
       <tr>
           <td><a href="@routes.GestionTareasController.formularioNuevaTarea(usuario.getId())">
               <span class="glyphicon glyphicon-plus"/></a></td>
+          <td></td>
       </tr>
 
   </table>
