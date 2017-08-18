@@ -95,4 +95,10 @@ public class GestionTareasController extends Controller {
       Tarea tarea = tareaService.modificaTarea(idTarea, nuevoTitulo);
       return redirect(controllers.routes.GestionTareasController.listaTareas(tarea.getUsuario().getId()));
    }
+
+   public Result borraTarea(Long idTarea) {
+      tareaService.borraTarea(idTarea);
+      flash("aviso", "Tarea borrada correctamente");
+      return ok();
+   }
 }
