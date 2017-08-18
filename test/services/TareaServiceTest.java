@@ -90,4 +90,13 @@ public class TareaServiceTest {
       Tarea tarea = tareaService.obtenerTarea(idTarea);
       assertEquals("Pagar el alquiler", tarea.getTitulo());
    }
+
+   // Test #23: borrado tarea
+   @Test
+   public void borradoTarea() {
+      TareaService tareaService = newTareaService();
+      long idTarea = 1000L;
+      tareaService.borraTarea(idTarea);
+      assertNull(tareaService.obtenerTarea(idTarea));
+   }
 }
