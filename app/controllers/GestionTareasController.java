@@ -6,6 +6,7 @@ import views.html.*;
 import javax.inject.*;
 import play.data.Form;
 import play.data.FormFactory;
+import play.data.DynamicForm;
 import play.Logger;
 
 import java.util.List;
@@ -75,7 +76,23 @@ public class GestionTareasController extends Controller {
       if (tarea == null) {
          return notFound("Tarea no encontrada");
       } else {
-         return ok(saludo.render("Tarea encontrada: " + tarea.getTitulo()));
+         String connectedUserStr = session("connected");
+         Long connectedUser =  Long.valueOf(connectedUserStr);
+         if (connectedUser != tarea.getUsuario().getId()) {
+            return unauthorized("Lo siento, no estás autorizado");
+         } else {
+            return ok(formModificacionTarea.render(tarea.getUsuario().getId(),
+            tarea.getId(),
+            tarea.getTitulo(),
+            ""));
+         }
       }
+   }
+
+   public Result grabaTareaModificada(Long idTarea) {
+      DynamicForm requestData = formFactory.form().bindFromRequest();
+      String nuevoTitulo = requestData.get("titulo");
+      Tarea tarea = tareaService.modificaTarea(idTarea, nuevoTitulo);
+      return redirect(controllers.routes.GestionTareasController.listaTareas(tarea.getUsuario().getId()));
    }
 }
