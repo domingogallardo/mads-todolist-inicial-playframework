@@ -1,5 +1,19 @@
 @(tareas: List[Tarea], usuario: Usuario, mensaje: String)
-@main("Tareas del usuario @usuario.getLogin()") {
+@scripts = {
+    <script type="text/javascript">
+        function del(urlBorrar) {
+            $.ajax({
+                url: urlBorrar,
+                type: 'DELETE',
+                success: function(results) {
+                    //refresh the page
+                    location.reload();
+                }
+            });
+        }
+    </script>
+}
+@main("Tareas del usuario @usuario.getLogin()", scripts) {
 
     <h2> Listado de tareas de @usuario.getLogin()</h2>
 
@@ -12,14 +26,17 @@
         <tr>
             <td>@tarea.getTitulo()</td>
             <td><a href="@routes.GestionTareasController.formularioEditaTarea(tarea.getId())">
-                <span class="glyphicon glyphicon-pencil"></span></td>
+                <span class="glyphicon glyphicon-pencil"></span>&nbsp;
+                <a onmouseover="" style="cursor: pointer;"
+                onclick="del('@routes.GestionTareasController.borraTarea(tarea.getId())')">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
         </tr>
       }
 
       <tr>
           <td><a href="@routes.GestionTareasController.formularioNuevaTarea(usuario.getId())">
               <span class="glyphicon glyphicon-plus"/></a></td>
-          <td></td>
+          <td><a href="@routes.UsuarioController.logout()">Salir</a></td>
       </tr>
 
   </table>
