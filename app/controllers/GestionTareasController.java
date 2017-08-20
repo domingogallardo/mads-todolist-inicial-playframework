@@ -89,6 +89,7 @@ public class GestionTareasController extends Controller {
       }
    }
 
+   @Security.Authenticated(ActionAuthenticator.class)
    public Result grabaTareaModificada(Long idTarea) {
       DynamicForm requestData = formFactory.form().bindFromRequest();
       String nuevoTitulo = requestData.get("titulo");
@@ -96,6 +97,7 @@ public class GestionTareasController extends Controller {
       return redirect(controllers.routes.GestionTareasController.listaTareas(tarea.getUsuario().getId()));
    }
 
+   @Security.Authenticated(ActionAuthenticator.class)
    public Result borraTarea(Long idTarea) {
       tareaService.borraTarea(idTarea);
       flash("aviso", "Tarea borrada correctamente");
