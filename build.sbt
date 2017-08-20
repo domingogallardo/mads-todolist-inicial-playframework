@@ -1,6 +1,6 @@
 name := """mads-todolist-2017"""
 
-version := "0.1-SNAPSHOT"
+version := "0.1"
 
 lazy val root = (project in file(".")).enablePlugins(PlayJava)
 
