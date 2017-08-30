@@ -5,7 +5,9 @@ Realizada por Domingo Gallardo.
 La práctica consiste en un proyecto implementado en [Play Framework 2.5](https://www.playframework.com/documentation/2.5.x/Home) para gestionar las tareas pendientes de un conjunto de usuarios de una empresa.
 
 Aquí hay una breve descripción de cómo lanzar la práctica. La documentación
-completa se encuentra en el directorio `docs`.
+completa de la práctica se encuentra en el repositorio
+[apuntes-mads](https://github.com/domingogallardo/apuntes-mads), en el
+documento [Práctica 1: Primera aplicación Play Framework Java](https://github.com/domingogallardo/apuntes-mads/blob/master/practicas/01-introduccion-play/introduccion-play.md).
 
 
 ## Cómo ejecutar el proyecto
