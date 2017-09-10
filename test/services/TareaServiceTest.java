@@ -15,12 +15,12 @@ import java.io.FileInputStream;
 import java.util.List;
 
 import models.Usuario;
-import models.UsuarioRepository;
-import models.JPAUsuarioRepository;
-
 import models.Tarea;
-import models.TareaRepository;
-import models.JPATareaRepository;
+
+import play.inject.guice.GuiceApplicationBuilder;
+import play.inject.Injector;
+import play.inject.guice.GuiceInjectorBuilder;
+import play.Environment;
 
 import services.UsuarioService;
 import services.UsuarioServiceException;
@@ -28,17 +28,15 @@ import services.TareaService;
 import services.TareaServiceException;
 
 public class TareaServiceTest {
+   static private Injector injector;
    static Database db;
-   static JPAApi jpaApi;
 
    @BeforeClass
-   static public void initDatabase() {
-      db = Databases.inMemoryWith("jndiName", "DBTest");
-      db.getConnection();
-      db.withConnection(connection -> {
-         connection.createStatement().execute("SET MODE MySQL;");
-      });
-      jpaApi = JPA.createFor("memoryPersistenceUnit");
+   static public void initApplication() {
+      GuiceApplicationBuilder guiceApplicationBuilder =
+          new GuiceApplicationBuilder().in(Environment.simple());
+      injector = guiceApplicationBuilder.injector();
+      injector.instanceOf(JPAApi.class);
    }
 
    @Before
@@ -51,9 +49,7 @@ public class TareaServiceTest {
    }
 
    private TareaService newTareaService() {
-      UsuarioRepository usuarioRepository = new JPAUsuarioRepository(jpaApi);
-      TareaRepository tareaRepository = new JPATareaRepository(jpaApi);
-      return new TareaService(usuarioRepository, tareaRepository);
+      return injector.instanceOf(TareaService.class);
    }
 
    // Test #19: allTareasUsuarioEstanOrdenadas

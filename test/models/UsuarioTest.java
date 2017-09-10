@@ -19,28 +19,28 @@ import org.dbunit.dataset.xml.*;
 import org.dbunit.operation.*;
 import java.io.FileInputStream;
 
+import play.inject.guice.GuiceApplicationBuilder;
+import play.inject.Injector;
+import play.inject.guice.GuiceInjectorBuilder;
+import play.Environment;
+
 import models.Usuario;
 import models.UsuarioRepository;
 import models.JPAUsuarioRepository;
 
 public class UsuarioTest {
    static Database db;
-   static JPAApi jpaApi;
+   static private Injector injector;
 
    // Se ejecuta sólo una vez, al principio de todos los tests
    @BeforeClass
-   static public void initDatabase() {
-      // Inicializamos la BD en memoria y su nombre JNDI
-      db = Databases.inMemoryWith("jndiName", "DBTest");
-      db.getConnection();
-      // Se activa la compatibilidad MySQL en la BD H2
-      db.withConnection(connection -> {
-         connection.createStatement().execute("SET MODE MySQL;");
-      });
-      // Activamos en JPA la unidad de persistencia "memoryPersistenceUnit"
-      // declarada en META-INF/persistence.xml y obtenemos el objeto
-      // JPAApi
-      jpaApi = JPA.createFor("memoryPersistenceUnit");
+   static public void initApplication() {
+      GuiceApplicationBuilder guiceApplicationBuilder =
+          new GuiceApplicationBuilder().in(Environment.simple());
+      injector = guiceApplicationBuilder.injector();
+      db = injector.instanceOf(Database.class);
+      // Necesario para inicializar JPA
+      injector.instanceOf(JPAApi.class);
    }
 
 
@@ -63,7 +63,11 @@ public class UsuarioTest {
       // Es lo que hace DbUnit por defecto, pero así queda más claro.
       databaseTester.setSetUpOperation(DatabaseOperation.CLEAN_INSERT);
       databaseTester.onSetup();
-      
+
+   }
+
+   private UsuarioRepository newUsuarioRepository() {
+      return injector.instanceOf(UsuarioRepository.class);
    }
 
    // Test 1: testCrearUsuario
@@ -89,8 +93,7 @@ public class UsuarioTest {
    // Test 2: testAddUsuarioJPARepositoryInsertsUsuarioDatabase
    @Test
    public void testAddUsuarioJPARepositoryInsertsUsuarioDatabase() {
-      assertNotNull(jpaApi);
-      UsuarioRepository repository = new JPAUsuarioRepository(jpaApi);
+      UsuarioRepository repository = newUsuarioRepository();
       Usuario usuario = new Usuario("juangutierrez", "juangutierrez@gmail.com");
       usuario.setNombre("Juan");
       usuario.setApellidos("Gutierrez");
@@ -116,7 +119,7 @@ public class UsuarioTest {
    // Test 3: testFindUsuarioPorId
    @Test
    public void testFindUsuarioPorId() {
-      UsuarioRepository repository = new JPAUsuarioRepository(jpaApi);
+      UsuarioRepository repository = newUsuarioRepository();
       Usuario usuario = repository.findById(1000L);
       assertEquals("juangutierrez", usuario.getLogin());
    }
@@ -124,7 +127,7 @@ public class UsuarioTest {
    // Test 4: testFindUsuarioPorLogin
    @Test
    public void testFindUsuarioPorLogin() {
-      UsuarioRepository repository = new JPAUsuarioRepository(jpaApi);
+      UsuarioRepository repository = newUsuarioRepository();
       Usuario usuario = repository.findByLogin("juangutierrez");
       assertEquals((Long) 1000L, usuario.getId());
    }
