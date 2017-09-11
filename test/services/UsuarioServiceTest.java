@@ -1,9 +1,6 @@
 import org.junit.*;
 import static org.junit.Assert.*;
 
-import play.db.Database;
-import play.db.Databases;
-
 import play.db.jpa.*;
 
 import org.dbunit.*;
@@ -26,7 +23,6 @@ import services.UsuarioService;
 import services.UsuarioServiceException;
 
 public class UsuarioServiceTest {
-   static Database db;
    static private Injector injector;
 
    // Se ejecuta sólo una vez, al principio de todos los tests

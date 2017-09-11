@@ -1,9 +1,6 @@
 import org.junit.*;
 import static org.junit.Assert.*;
 
-import play.db.Database;
-import play.db.Databases;
-
 import play.db.jpa.*;
 
 import org.dbunit.*;
@@ -29,7 +26,6 @@ import services.TareaServiceException;
 
 public class TareaServiceTest {
    static private Injector injector;
-   static Database db;
 
    @BeforeClass
    static public void initApplication() {
