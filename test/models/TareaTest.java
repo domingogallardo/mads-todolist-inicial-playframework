@@ -113,7 +113,7 @@ public class TareaTest {
 
    private String getTituloFromTareaDB(Long tareaId) {
       String titulo = db.withConnection(connection -> {
-         String selectStatement = "SELECT TITULO FROM TAREA WHERE ID = ? ";
+         String selectStatement = "SELECT TITULO FROM Tarea WHERE ID = ? ";
          PreparedStatement prepStmt = connection.prepareStatement(selectStatement);
          prepStmt.setLong(1, tareaId);
          ResultSet rs = prepStmt.executeQuery();
