@@ -22,7 +22,7 @@ public class Usuario {
    @Temporal(TemporalType.DATE)
    private Date fechaNacimiento;
    // Relación uno-a-muchos entre usuario y tarea
-   @OneToMany(mappedBy="usuario")
+   @OneToMany(mappedBy="usuario", fetch=FetchType.EAGER)
    public List<Tarea> tareas = new ArrayList<Tarea>();
 
    // Un constructor vacío necesario para JPA
