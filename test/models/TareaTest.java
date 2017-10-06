@@ -134,9 +134,8 @@ public class TareaTest {
    // Test #18 testFindAllTareasUsuario
    @Test
    public void testFindAllTareasUsuario() {
-      TareaRepository repository = newTareaRepository();
-      Long idUsuario = 1000L;
-      List<Tarea> tareas = repository.findAllTareas(idUsuario);
-      assertEquals(2, tareas.size());
+      UsuarioRepository repository = newUsuarioRepository();
+      Usuario usuario = repository.findById(1000L);
+      assertEquals(2, usuario.getTareas().size());
    }
 }
