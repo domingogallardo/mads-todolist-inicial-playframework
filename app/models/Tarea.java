@@ -67,7 +67,7 @@ public class Tarea {
       Tarea other = (Tarea) obj;
       // Si tenemos los ID, comparamos por ID
       if (id != null && other.id != null)
-      return (id == other.id);
+      return ((long) id == (long) other.id);
       // sino comparamos por campos obligatorios
       else {
          if (titulo == null) {
