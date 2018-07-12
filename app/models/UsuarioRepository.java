@@ -8,7 +8,7 @@ import com.google.inject.ImplementedBy;
 // esta interfaz un objeto JPAUsuarioRepository
 @ImplementedBy(JPAUsuarioRepository.class)
 public interface UsuarioRepository {
-   Usuario add(Usuario usuario);
-   Usuario findById(Long id);
-   Usuario findByLogin(String login);
+    Usuario add(Usuario usuario);
+    Usuario findById(Long id);
+    Usuario findByLogin(String login);
 }

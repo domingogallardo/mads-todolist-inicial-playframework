@@ -2,7 +2,7 @@
 @main("Nueva tarea") {
     @if(mensaje != "") {
         <div class="alert alert-danger">
-            @mensaje
+        @mensaje
         </div>
     }
     <h1>Nueva tarea para @usuario.getLogin()</h1>
@@ -12,7 +12,7 @@
             @helper.inputText(tareaForm("titulo"), '_label -> "Titulo", 'size -> 70)
         </fieldset>
         <p>
-           <input type="submit" class="btn btn-primary" value="Guardar">
+            <input type="submit" class="btn btn-primary" value="Guardar">
         </p>
     }
 }
