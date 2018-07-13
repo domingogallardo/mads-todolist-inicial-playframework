@@ -23,7 +23,9 @@ public class Usuario {
     private Date fechaNacimiento;
     // Relación uno-a-muchos entre usuario y tarea
     @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
-    public Set<Tarea> tareas = new HashSet<Tarea>();
+    private Set<Tarea> tareas = new HashSet<Tarea>();
+    @ManyToMany
+    private Set<Equipo> equipos = new HashSet<Equipo>();
 
     // Un constructor vacío necesario para JPA
     public Usuario() {
@@ -101,6 +103,14 @@ public class Usuario {
         this.tareas = tareas;
     }
 
+    public Set<Equipo> getEquipos() {
+        return equipos;
+    }
+
+    public void setEquipos(Set<Equipo> equipos) {
+        this.equipos = equipos;
+    }
+
     public String toString() {
         String fechaStr = null;
         if (fechaNacimiento != null) {
@@ -125,9 +135,10 @@ public class Usuario {
         if (this == obj) return true;
         if (getClass() != obj.getClass()) return false;
         Usuario other = (Usuario) obj;
-        // Si tenemos los ID, comparamos por ID
-        if (id != null && other.id != null)
+        if (id != null && other.id != null) {
+            // Si tenemos los ID, comparamos por ID
             return (id == other.id);
+        }
             // sino comparamos por campos obligatorios
         else {
             if (login == null) {
