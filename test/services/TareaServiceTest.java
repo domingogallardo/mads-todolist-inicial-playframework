@@ -39,7 +39,7 @@ public class TareaServiceTest {
 
     @Before
     public void initData() throws Exception {
-        JndiDatabaseTester databaseTester = new JndiDatabaseTester("DBTest");
+        JndiDatabaseTester databaseTester = new JndiDatabaseTester("DBTodoList");
         IDataSet initialDataSet = new FlatXmlDataSetBuilder().build(new FileInputStream("test/resources/usuarios_dataset.xml"));
         databaseTester.setDataSet(initialDataSet);
         databaseTester.setSetUpOperation(DatabaseOperation.CLEAN_INSERT);
