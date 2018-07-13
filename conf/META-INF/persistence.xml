@@ -5,7 +5,7 @@
 
    <persistence-unit name="memoryPersistenceUnit" transaction-type="RESOURCE_LOCAL">
       <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-      <non-jta-data-source>DBTest</non-jta-data-source>
+      <non-jta-data-source>DBTodoList</non-jta-data-source>
       <class>models.Usuario</class>
       <class>models.Tarea</class>
       <properties>
@@ -18,7 +18,7 @@
 
 <persistence-unit name="mySqlPersistenceUnit" transaction-type="RESOURCE_LOCAL">
    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-   <non-jta-data-source>DBTest</non-jta-data-source>
+   <non-jta-data-source>DBTodoList</non-jta-data-source>
    <class>models.Usuario</class>
    <class>models.Tarea</class>
    <properties>
@@ -31,7 +31,7 @@
 
 <persistence-unit name="mySqlPersistenceUnitProduction" transaction-type="RESOURCE_LOCAL">
    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-   <non-jta-data-source>DBTest</non-jta-data-source>
+   <non-jta-data-source>DBTodoList</non-jta-data-source>
    <class>models.Usuario</class>
    <class>models.Tarea</class>
    <properties>

@@ -49,14 +49,14 @@ public class UsuarioTest {
 
     // Se ejecuta al antes de cada test
     // Se insertan los datos de prueba en la tabla Usuarios de
-    // la BD "DBTest". La BD ya contiene una tabla de usuarios
+    // la BD "DBTodoList". La BD ya contiene una tabla de usuarios
     // porque la ha creado JPA al tener la propiedad
     // hibernate.hbm2ddl.auto (en META-INF/persistence.xml) el valor update
     // Los datos de prueba se definen en el fichero
     // test/resources/usuarios_dataset.xml
     @Before
     public void initData() throws Exception {
-        JndiDatabaseTester databaseTester = new JndiDatabaseTester("DBTest");
+        JndiDatabaseTester databaseTester = new JndiDatabaseTester("DBTodoList");
         IDataSet initialDataSet = new FlatXmlDataSetBuilder().build(new
                 FileInputStream("test/resources/usuarios_dataset.xml"));
         databaseTester.setDataSet(initialDataSet);
