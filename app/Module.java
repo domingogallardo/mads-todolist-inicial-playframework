@@ -1,6 +1,8 @@
 import com.google.inject.AbstractModule;
 import java.time.Clock;
 
+import models.EquipoRepository;
+import models.JPAEquipoRepository;
 import services.ApplicationTimer;
 import services.AtomicCounter;
 import services.Counter;
@@ -26,6 +28,9 @@ public class Module extends AbstractModule {
         bind(ApplicationTimer.class).asEagerSingleton();
         // Set AtomicCounter as the implementation for Counter.
         bind(Counter.class).to(AtomicCounter.class);
+
+        // Bindings de la aplicación
+        bind(EquipoRepository.class).to(JPAEquipoRepository.class);
     }
 
 }

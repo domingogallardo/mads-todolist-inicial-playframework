@@ -43,6 +43,7 @@ public class TareaTest {
         GuiceApplicationBuilder guiceApplicationBuilder =
                 new GuiceApplicationBuilder().in(Environment.simple());
         injector = guiceApplicationBuilder.injector();
+        // Obtenemos la base de datos utilizada por la aplicación
         db = injector.instanceOf(Database.class);
         // Necesario para inicializar JPA
         injector.instanceOf(JPAApi.class);
@@ -50,6 +51,7 @@ public class TareaTest {
 
     @Before
     public void initData() throws Exception {
+        // Creamos la base de datos de test y le asignamos el nombre JNDI DBTodoList
         JndiDatabaseTester databaseTester = new JndiDatabaseTester("DBTodoList");
         IDataSet initialDataSet = new FlatXmlDataSetBuilder().build(new FileInputStream("test/resources/usuarios_dataset.xml"));
         databaseTester.setDataSet(initialDataSet);
@@ -131,7 +133,7 @@ public class TareaTest {
     @Test
     public void testFindTareaPorId() {
         TareaRepository repository = newTareaRepository();
-        Tarea tarea = repository.findById(1000L);
+        Tarea tarea = repository.findById(1001L);
         assertEquals("Renovar DNI", tarea.getTitulo());
     }
 
