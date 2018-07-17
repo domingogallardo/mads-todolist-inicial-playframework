@@ -1,10 +1,8 @@
 import com.google.inject.AbstractModule;
 import java.time.Clock;
 
-<<<<<<< HEAD
-=======
 import models.*;
->>>>>>> 49a0ed6... Refactor: inyección, imports, numeros de tests
+
 import services.ApplicationTimer;
 import services.AtomicCounter;
 import services.Counter;
@@ -32,7 +30,6 @@ public class Module extends AbstractModule {
         bind(Counter.class).to(AtomicCounter.class);
 
         // Bindings de la aplicación
-        bind(EquipoRepository.class).to(JPAEquipoRepository.class);
         bind(UsuarioRepository.class).to(JPAUsuarioRepository.class);
         bind(TareaRepository.class).to(JPATareaRepository.class);
     }
