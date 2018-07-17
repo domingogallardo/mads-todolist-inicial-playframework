@@ -1,9 +1,9 @@
 package services;
 
-import javax.inject.*;
-
 import models.Usuario;
 import models.UsuarioRepository;
+
+import javax.inject.Inject;
 
 
 public class UsuarioService {

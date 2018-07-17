@@ -50,7 +50,6 @@ public class TareaServiceTest {
         return injector.instanceOf(TareaService.class);
     }
 
-    // Test #19: allTareasUsuarioEstanOrdenadas
     @Test
     public void allTareasUsuarioEstanOrdenadas() {
         TareaService tareaService = newTareaService();
@@ -59,14 +58,12 @@ public class TareaServiceTest {
         assertEquals("Práctica 1 MADS", tareas.get(1).getTitulo());
     }
 
-    // Test #20: exceptionSiUsuarioNoExisteRecuperandoSusTareas
     @Test(expected = TareaServiceException.class)
     public void crearNuevoUsuarioLoginRepetidoLanzaExcepcion() {
         TareaService tareaService = newTareaService();
         List<Tarea> tareas = tareaService.allTareasUsuario(1001L);
     }
 
-    // Test #21: nuevaTareaUsuario
     @Test
     public void nuevaTareaUsuario() {
         TareaService tareaService = newTareaService();
@@ -75,7 +72,6 @@ public class TareaServiceTest {
         assertEquals(3, tareaService.allTareasUsuario(1000L).size());
     }
 
-    // Test #22: modificación de tareas
     @Test
     public void modificacionTarea() {
         TareaService tareaService = newTareaService();
@@ -85,7 +81,6 @@ public class TareaServiceTest {
         assertEquals("Pagar el alquiler", tarea.getTitulo());
     }
 
-    // Test #23: borrado tarea
     @Test
     public void borradoTarea() {
         TareaService tareaService = newTareaService();

@@ -50,7 +50,6 @@ public class UsuarioServiceTest {
         databaseTester.onSetup();
     }
 
-    //Test 5: crearNuevoUsuarioCorrectoTest
     @Test
     public void crearNuevoUsuarioCorrectoTest() {
         UsuarioService usuarioService = newUsuarioService();
@@ -61,7 +60,6 @@ public class UsuarioServiceTest {
         assertEquals("123456", usuario.getPassword());
     }
 
-    //Test 6: crearNuevoUsuarioLoginRepetidoLanzaExcepcion
     @Test(expected = UsuarioServiceException.class)
     public void crearNuevoUsuarioLoginRepetidoLanzaExcepcion() {
         UsuarioService usuarioService = newUsuarioService();
@@ -69,7 +67,6 @@ public class UsuarioServiceTest {
         Usuario usuario = usuarioService.creaUsuario("juangutierrez", "juan.gutierrez@gmail.com", "123456");
     }
 
-    //Test 7: findUsuarioPorLogin
     @Test
     public void findUsuarioPorLogin() {
         UsuarioService usuarioService = newUsuarioService();
@@ -80,7 +77,6 @@ public class UsuarioServiceTest {
     }
 
 
-    //Test 8: loginUsuarioExistenteTest
     @Test
     public void loginUsuarioExistenteTest() {
         UsuarioService usuarioService = newUsuarioService();
@@ -89,7 +85,6 @@ public class UsuarioServiceTest {
         assertEquals((Long) 1000L, usuario.getId());
     }
 
-    //Test 9: loginUsuarioNoExistenteTest
     @Test
     public void loginUsuarioNoExistenteTest() {
         UsuarioService usuarioService = newUsuarioService();
@@ -98,7 +93,6 @@ public class UsuarioServiceTest {
         assertNull(usuario);
     }
 
-    //Test 10: findUsuarioPorId
     @Test
     public void findUsuarioPorId() {
         UsuarioService usuarioService = newUsuarioService();
