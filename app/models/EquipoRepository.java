@@ -6,4 +6,5 @@ public interface EquipoRepository {
     Equipo update(Equipo equipo);
     void delete(Long idEquipo);
     Equipo findById(Long idEquipo);
+    Equipo findByNombre(String nombre);
 }

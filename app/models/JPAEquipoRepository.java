@@ -5,6 +5,8 @@ import javax.inject.Inject;
 import play.db.jpa.JPAApi;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 
 public class JPAEquipoRepository implements EquipoRepository {
     JPAApi jpaApi;
@@ -45,6 +47,20 @@ public class JPAEquipoRepository implements EquipoRepository {
     public Equipo findById(Long idEquipo) {
         return jpaApi.withTransaction(entityManager -> {
             return entityManager.find(Equipo.class, idEquipo);
+        });
+    }
+
+    @Override
+    public Equipo findByNombre(String nombre) {
+        return jpaApi.withTransaction(entityManager -> {
+            TypedQuery<Equipo> query = entityManager.createQuery(
+                    "select u from Equipo u where u.nombre = :nombre", Equipo.class);
+            try {
+                Equipo equipo = query.setParameter("nombre", nombre).getSingleResult();
+                return equipo;
+            } catch (NoResultException ex) {
+                return null;
+            }
         });
     }
 }
