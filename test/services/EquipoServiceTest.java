@@ -1,5 +1,6 @@
 package services;
 
+import models.Equipo;
 import models.Tarea;
 import org.dbunit.JndiDatabaseTester;
 import org.dbunit.dataset.IDataSet;
@@ -42,5 +43,12 @@ public class EquipoServiceTest {
     public void addEquipoNombreRepetido() {
         EquipoService equipoService = injector.instanceOf(EquipoService.class);
         equipoService.addEquipo("Equipo A");
+    }
+
+    @Test
+    public void listaEquipos() {
+        EquipoService equipoService = injector.instanceOf(EquipoService.class);
+        List<Equipo> equipos = equipoService.allEquipos();
+        assertEquals(2, equipos.size());
     }
 }

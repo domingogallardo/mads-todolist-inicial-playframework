@@ -1,0 +1,9 @@
+@(equipos: List[Equipo])
+@main("Listado de equipos", null) {
+
+    <h2> Listado de equipos</h2>
+
+    @for(equipo <- equipos) {
+        <li>@equipo.getNombre</li>
+    }
+}

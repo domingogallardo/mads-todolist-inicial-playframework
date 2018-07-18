@@ -5,4 +5,5 @@
     <Tarea id="1001" titulo="Renovar DNI" usuarioId="1000"/>
     <Tarea id="1002" titulo="Práctica 1 MADS" usuarioId="1000"/>
     <Equipo id="1003" nombre="Equipo A"/>
+    <Equipo id="1004" nombre="Equipo B"/>
  </dataset>

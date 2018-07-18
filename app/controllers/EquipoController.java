@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Equipo;
 import play.data.DynamicForm;
 import play.data.FormFactory;
 import play.mvc.Controller;
@@ -8,8 +9,10 @@ import services.EquipoService;
 
 // Es necesario importar las vistas que se van a usar
 import views.html.formNuevoEquipo;
+import views.html.listaEquipos;
 
 import javax.inject.Inject;
+import java.util.List;
 
 public class EquipoController extends Controller {
     @Inject
@@ -26,5 +29,10 @@ public class EquipoController extends Controller {
         String nombre = requestData.get("nombre");
         equipoService.addEquipo(nombre);
         return ok("Equipo añadido correctamente");
+    }
+
+    public Result listaEquipos() {
+        List<Equipo> equipos = equipoService.allEquipos();
+        return ok(listaEquipos.render(equipos));
     }
 }

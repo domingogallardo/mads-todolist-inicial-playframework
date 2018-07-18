@@ -1,5 +1,6 @@
 package models;
-import com.google.inject.ImplementedBy;
+
+import java.util.List;
 
 public interface EquipoRepository {
     Equipo add(Equipo equipo);
@@ -7,4 +8,5 @@ public interface EquipoRepository {
     void delete(Long idEquipo);
     Equipo findById(Long idEquipo);
     Equipo findByNombre(String nombre);
+    List<Equipo> findAll();
 }

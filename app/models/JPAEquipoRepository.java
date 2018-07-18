@@ -7,6 +7,7 @@ import play.db.jpa.JPAApi;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
+import java.util.List;
 
 public class JPAEquipoRepository implements EquipoRepository {
     JPAApi jpaApi;
@@ -29,8 +30,7 @@ public class JPAEquipoRepository implements EquipoRepository {
     @Override
     public Equipo update(Equipo equipo) {
         return jpaApi.withTransaction(entityManager -> {
-            Equipo actualizado = entityManager.merge(equipo);
-            return actualizado;
+            return entityManager.merge(equipo);
         });
     }
 
@@ -54,13 +54,22 @@ public class JPAEquipoRepository implements EquipoRepository {
     public Equipo findByNombre(String nombre) {
         return jpaApi.withTransaction(entityManager -> {
             TypedQuery<Equipo> query = entityManager.createQuery(
-                    "select u from Equipo u where u.nombre = :nombre", Equipo.class);
+                    "select e from Equipo e where e.nombre = :nombre", Equipo.class);
             try {
                 Equipo equipo = query.setParameter("nombre", nombre).getSingleResult();
                 return equipo;
             } catch (NoResultException ex) {
                 return null;
             }
+        });
+    }
+
+    @Override
+    public List<Equipo> findAll() {
+        return jpaApi.withTransaction(entityManager -> {
+            TypedQuery<Equipo> query = entityManager.createQuery(
+                    "select e from Equipo e", Equipo.class);
+            return query.getResultList();
         });
     }
 }
