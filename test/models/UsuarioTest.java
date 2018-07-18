@@ -77,7 +77,6 @@ public class UsuarioTest {
         return injector.instanceOf(UsuarioRepository.class);
     }
 
-    // Test 1: testCrearUsuario
     @Test
     public void testCrearUsuario() throws ParseException {
         // Los parámetros del constructor son los campos obligatorios
@@ -97,7 +96,6 @@ public class UsuarioTest {
         assertTrue(usuario.getFechaNacimiento().compareTo(sdf.parse("1997-02-20")) == 0);
     }
 
-    // Test 2: testAddUsuarioJPARepositoryInsertsUsuarioDatabase
     @Test
     public void testAddUsuarioJPARepositoryInsertsUsuarioDatabase() {
         UsuarioRepository repository = newUsuarioRepository();
@@ -123,7 +121,6 @@ public class UsuarioTest {
         return nombre;
     }
 
-    // Test 3: testFindUsuarioPorId
     @Test
     public void testFindUsuarioPorId() {
         UsuarioRepository repository = newUsuarioRepository();
@@ -131,7 +128,6 @@ public class UsuarioTest {
         assertEquals("juangutierrez", usuario.getLogin());
     }
 
-    // Test 4: testFindUsuarioPorLogin
     @Test
     public void testFindUsuarioPorLogin() {
         UsuarioRepository repository = newUsuarioRepository();
@@ -139,7 +135,6 @@ public class UsuarioTest {
         assertEquals((Long) 1000L, usuario.getId());
     }
 
-    // Test #12: testEqualsUsuariosConId
     @Test
     public void testEqualsUsuariosConId() {
         Usuario usuario1 = new Usuario("juangutierrez", "juangutierrez@gmail.com");
@@ -152,7 +147,6 @@ public class UsuarioTest {
         assertNotEquals(usuario1, usuario3);
     }
 
-    // Test #13: testEqualsUsuariosSinId
     @Test
     public void testEqualsUsuariosSinId() {
         Usuario usuario1 = new Usuario("mariafernandez", "mariafernandez@gmail.com");

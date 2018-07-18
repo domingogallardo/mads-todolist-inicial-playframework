@@ -1,13 +1,10 @@
 package models;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
-import java.util.Date;
 import javax.persistence.*;
-
-import java.util.Set;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Usuario {

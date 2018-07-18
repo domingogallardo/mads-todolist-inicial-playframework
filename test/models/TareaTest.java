@@ -67,7 +67,6 @@ public class TareaTest {
         return injector.instanceOf(UsuarioRepository.class);
     }
 
-    // Test #11: testCrearTarea
     @Test
     public void testCrearTarea() {
         Usuario usuario = new Usuario("juangutierrez", "juangutierrez@gmail.com");
@@ -78,7 +77,6 @@ public class TareaTest {
         assertEquals("Práctica 1 de MADS", tarea.getTitulo());
     }
 
-    // Test #14: testEqualsTareasConId
     @Test
     public void testEqualsTareasConId() {
         Usuario usuario = new Usuario("juangutierrez", "juangutierrez@gmail.com");
@@ -92,7 +90,6 @@ public class TareaTest {
         assertNotEquals(tarea1, tarea3);
     }
 
-    // Test #15
     @Test
     public void testEqualsTareasSinId() {
         Usuario usuario = new Usuario("juangutierrez", "juangutierrez@gmail.com");
@@ -103,7 +100,6 @@ public class TareaTest {
         assertNotEquals(tarea1, tarea3);
     }
 
-    // Test #16: testAddTareaJPARepositoryInsertsTareaDatabase
     @Test
     public void testAddTareaJPARepositoryInsertsTareaDatabase() {
         UsuarioRepository usuarioRepository = newUsuarioRepository();
@@ -129,7 +125,6 @@ public class TareaTest {
         return titulo;
     }
 
-    // Test #17 testFindTareaById
     @Test
     public void testFindTareaPorId() {
         TareaRepository repository = newTareaRepository();
@@ -137,7 +132,6 @@ public class TareaTest {
         assertEquals("Renovar DNI", tarea.getTitulo());
     }
 
-    // Test #18 testFindAllTareasUsuario
     @Test
     public void testFindAllTareasUsuario() {
         UsuarioRepository repository = newUsuarioRepository();

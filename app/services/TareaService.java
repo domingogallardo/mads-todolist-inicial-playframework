@@ -1,15 +1,14 @@
 package services;
 
-import javax.inject.*;
-
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Collections;
-
-import models.Usuario;
-import models.UsuarioRepository;
 import models.Tarea;
 import models.TareaRepository;
+import models.Usuario;
+import models.UsuarioRepository;
+
+import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 
 public class TareaService {

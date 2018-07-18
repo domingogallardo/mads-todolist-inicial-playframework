@@ -1,18 +1,20 @@
 package controllers;
 
-import play.mvc.*;
-
-import views.html.*;
-
-import javax.inject.*;
-
+import models.Usuario;
+import play.Logger;
 import play.data.Form;
 import play.data.FormFactory;
-import play.Logger;
-
-import services.UsuarioService;
-import models.Usuario;
+import play.mvc.Controller;
+import play.mvc.Result;
+import play.mvc.Security;
 import security.ActionAuthenticator;
+import services.UsuarioService;
+import views.html.detalleUsuario;
+import views.html.formLogin;
+import views.html.formRegistro;
+import views.html.saludo;
+
+import javax.inject.Inject;
 
 public class UsuarioController extends Controller {
 

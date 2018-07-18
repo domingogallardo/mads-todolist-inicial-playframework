@@ -1,21 +1,22 @@
 package controllers;
 
-import play.mvc.*;
-
-import views.html.*;
-import javax.inject.*;
+import models.Tarea;
+import models.Usuario;
+import play.data.DynamicForm;
 import play.data.Form;
 import play.data.FormFactory;
-import play.data.DynamicForm;
-import play.Logger;
-
-import java.util.List;
-
-import services.UsuarioService;
-import services.TareaService;
-import models.Usuario;
-import models.Tarea;
+import play.mvc.Controller;
+import play.mvc.Result;
+import play.mvc.Security;
 import security.ActionAuthenticator;
+import services.TareaService;
+import services.UsuarioService;
+import views.html.formModificacionTarea;
+import views.html.formNuevaTarea;
+import views.html.listaTareas;
+
+import javax.inject.Inject;
+import java.util.List;
 
 public class GestionTareasController extends Controller {
 

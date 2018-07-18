@@ -1,9 +1,8 @@
 package models;
 
-import javax.inject.Inject;
-
 import play.db.jpa.JPAApi;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 public class JPATareaRepository implements TareaRepository {
