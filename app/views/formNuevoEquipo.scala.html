@@ -1,0 +1,14 @@
+@()
+@main("Nuevo equipo") {
+    <h1>Nuevo equipo</h1>
+    @helper.form(action = routes.EquipoController.creaNuevoEquipo()) {
+        <fieldset>
+            <legend>Datos del equipo</legend>
+            <label>Nombre: </label>
+            <input type="text" name="nombre" size="70">
+        </fieldset>
+        <p>
+            <input type="submit" class="btn btn-primary" value="Guardar">
+        </p>
+    }
+}
