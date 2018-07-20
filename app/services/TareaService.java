@@ -59,6 +59,6 @@ public class TareaService {
         Tarea tarea = tareaRepository.findById(idTarea);
         if (tarea == null)
             throw new TareaServiceException("No existe tarea");
-        tareaRepository.delete(idTarea);
+        tareaRepository.delete(tarea);
     }
 }

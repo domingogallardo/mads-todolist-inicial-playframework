@@ -1,7 +1,7 @@
 package models;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -16,7 +16,7 @@ public class Equipo {
     @JoinTable(name = "Equipo_Usuario",
         joinColumns = { @JoinColumn(name = "fk_equipo") },
         inverseJoinColumns = {@JoinColumn(name = "fk_usuario")})
-    private List<Usuario> usuarios = new ArrayList<Usuario>();
+    private Set<Usuario> usuarios = new HashSet<>();
 
     // Un constructor vacío necesario para JPA
     public Equipo() {
@@ -43,7 +43,7 @@ public class Equipo {
         this.nombre = nombre;
     }
 
-    public List<Usuario> getUsuarios() {
+    public Set<Usuario> getUsuarios() {
         return usuarios;
     }
 

@@ -6,7 +6,7 @@
         </div>
     }
     <h1>Nueva tarea para @usuario.getLogin()</h1>
-    @helper.form(action = routes.GestionTareasController.creaNuevaTarea(usuario.getId())) {
+    @helper.form(action = routes.TareasController.creaNuevaTarea(usuario.getId())) {
         <fieldset>
             <legend>Nueva tarea</legend>
             @helper.inputText(tareaForm("titulo"), '_label -> "Titulo", 'size -> 70)

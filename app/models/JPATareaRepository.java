@@ -29,10 +29,10 @@ public class JPATareaRepository implements TareaRepository {
         });
     }
 
-    public void delete(Long idTarea) {
+    public void delete(Tarea tarea) {
         jpaApi.withTransaction(() -> {
             EntityManager entityManager = jpaApi.em();
-            Tarea tareaBD = entityManager.getReference(Tarea.class, idTarea);
+            Tarea tareaBD = entityManager.getReference(Tarea.class, tarea.getId());
             entityManager.remove(tareaBD);
         });
     }

@@ -1,37 +1,26 @@
 package models;
 
-import org.junit.*;
-
-import static org.junit.Assert.*;
-
-import java.util.Date;
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
-
-import play.db.Database;
-import play.db.Databases;
-import play.db.jpa.*;
-
+import org.dbunit.JndiDatabaseTester;
+import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
+import org.dbunit.operation.DatabaseOperation;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import play.Environment;
 import play.Logger;
-
-import java.sql.*;
-
-import org.junit.*;
-import org.dbunit.*;
-import org.dbunit.dataset.*;
-import org.dbunit.dataset.xml.*;
-import org.dbunit.operation.*;
+import play.db.Database;
+import play.db.jpa.JPAApi;
+import play.inject.Injector;
+import play.inject.guice.GuiceApplicationBuilder;
 
 import java.io.FileInputStream;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
-import play.inject.guice.GuiceApplicationBuilder;
-import play.inject.Injector;
-import play.inject.guice.GuiceInjectorBuilder;
-import play.Environment;
-
-import models.Usuario;
-import models.UsuarioRepository;
-import models.JPAUsuarioRepository;
+import static org.junit.Assert.*;
 
 public class UsuarioTest {
     static Database db;
@@ -73,10 +62,6 @@ public class UsuarioTest {
 
     }
 
-    private UsuarioRepository newUsuarioRepository() {
-        return injector.instanceOf(UsuarioRepository.class);
-    }
-
     @Test
     public void testCrearUsuario() throws ParseException {
         // Los parámetros del constructor son los campos obligatorios
@@ -98,7 +83,7 @@ public class UsuarioTest {
 
     @Test
     public void testAddUsuarioJPARepositoryInsertsUsuarioDatabase() {
-        UsuarioRepository repository = newUsuarioRepository();
+        UsuarioRepository repository = injector.instanceOf(UsuarioRepository.class);
         Usuario usuario = new Usuario("juangutierrez", "juangutierrez@gmail.com");
         usuario.setNombre("Juan");
         usuario.setApellidos("Gutierrez");
@@ -123,14 +108,14 @@ public class UsuarioTest {
 
     @Test
     public void testFindUsuarioPorId() {
-        UsuarioRepository repository = newUsuarioRepository();
+        UsuarioRepository repository = injector.instanceOf(UsuarioRepository.class);
         Usuario usuario = repository.findById(1000L);
         assertEquals("juangutierrez", usuario.getLogin());
     }
 
     @Test
     public void testFindUsuarioPorLogin() {
-        UsuarioRepository repository = newUsuarioRepository();
+        UsuarioRepository repository = injector.instanceOf(UsuarioRepository.class);
         Usuario usuario = repository.findByLogin("juangutierrez");
         assertEquals((Long) 1000L, usuario.getId());
     }

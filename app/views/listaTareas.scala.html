@@ -25,16 +25,16 @@
     @for(tarea <- tareas) {
         <tr>
             <td>@tarea.getTitulo()</td>
-            <td><a href="@routes.GestionTareasController.formularioEditaTarea(tarea.getId())">
+            <td><a href="@routes.TareasController.formularioEditaTarea(tarea.getId())">
                 <span class="glyphicon glyphicon-pencil"></span>&nbsp;</a>
                 <a onmouseover="" style="cursor: pointer;"
-                onclick="del('@routes.GestionTareasController.borraTarea(tarea.getId())')">
+                onclick="del('@routes.TareasController.borraTarea(tarea.getId())')">
                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
         </tr>
       }
 
       <tr>
-          <td><a href="@routes.GestionTareasController.formularioNuevaTarea(usuario.getId())">
+          <td><a href="@routes.TareasController.formularioNuevaTarea(usuario.getId())">
               <span class="glyphicon glyphicon-plus"/></a></td>
           <td><a href="@routes.UsuarioController.logout()">Salir</a></td>
       </tr>

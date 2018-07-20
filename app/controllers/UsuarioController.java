@@ -9,6 +9,8 @@ import play.mvc.Result;
 import play.mvc.Security;
 import security.ActionAuthenticator;
 import services.UsuarioService;
+
+// Es necesario importar las vistas que se van a usar
 import views.html.detalleUsuario;
 import views.html.formLogin;
 import views.html.formRegistro;
@@ -70,7 +72,7 @@ public class UsuarioController extends Controller {
             // la sesión de Play
             // https://www.playframework.com/documentation/2.5.x/JavaSessionFlash
             session("connected", usuario.getId().toString());
-            return redirect(controllers.routes.GestionTareasController.listaTareas(usuario.getId()));
+            return redirect(controllers.routes.TareasController.listaTareas(usuario.getId()));
         }
     }
 

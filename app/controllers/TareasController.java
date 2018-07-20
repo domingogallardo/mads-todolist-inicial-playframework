@@ -11,6 +11,8 @@ import play.mvc.Security;
 import security.ActionAuthenticator;
 import services.TareaService;
 import services.UsuarioService;
+
+// Es necesario importar las vistas que se van a usar
 import views.html.formModificacionTarea;
 import views.html.formNuevaTarea;
 import views.html.listaTareas;
@@ -18,7 +20,7 @@ import views.html.listaTareas;
 import javax.inject.Inject;
 import java.util.List;
 
-public class GestionTareasController extends Controller {
+public class TareasController extends Controller {
 
    @Inject FormFactory formFactory;
    @Inject UsuarioService usuarioService;
@@ -53,7 +55,7 @@ public class GestionTareasController extends Controller {
          Tarea tarea = tareaForm.get();
          tareaService.nuevaTarea(idUsuario, tarea.getTitulo());
          flash("aviso", "La tarea se ha grabado correctamente");
-         return redirect(controllers.routes.GestionTareasController.listaTareas(idUsuario));
+         return redirect(controllers.routes.TareasController.listaTareas(idUsuario));
       }
    }
 
@@ -95,7 +97,7 @@ public class GestionTareasController extends Controller {
       DynamicForm requestData = formFactory.form().bindFromRequest();
       String nuevoTitulo = requestData.get("titulo");
       Tarea tarea = tareaService.modificaTarea(idTarea, nuevoTitulo);
-      return redirect(controllers.routes.GestionTareasController.listaTareas(tarea.getUsuario().getId()));
+      return redirect(controllers.routes.TareasController.listaTareas(tarea.getUsuario().getId()));
    }
 
    @Security.Authenticated(ActionAuthenticator.class)

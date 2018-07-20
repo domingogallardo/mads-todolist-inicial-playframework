@@ -1,30 +1,23 @@
-import org.junit.*;
+package services;
 
-import static org.junit.Assert.*;
-
-import play.db.jpa.*;
-
-import org.dbunit.*;
-import org.dbunit.dataset.*;
-import org.dbunit.dataset.xml.*;
-import org.dbunit.operation.*;
+import models.Tarea;
+import org.dbunit.JndiDatabaseTester;
+import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
+import org.dbunit.operation.DatabaseOperation;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import play.Environment;
+import play.db.jpa.JPAApi;
+import play.inject.Injector;
+import play.inject.guice.GuiceApplicationBuilder;
 
 import java.io.FileInputStream;
-
 import java.util.List;
 
-import models.Usuario;
-import models.Tarea;
-
-import play.inject.guice.GuiceApplicationBuilder;
-import play.inject.Injector;
-import play.inject.guice.GuiceInjectorBuilder;
-import play.Environment;
-
-import services.UsuarioService;
-import services.UsuarioServiceException;
-import services.TareaService;
-import services.TareaServiceException;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class TareaServiceTest {
     static private Injector injector;

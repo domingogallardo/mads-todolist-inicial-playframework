@@ -1,28 +1,23 @@
-import org.junit.*;
+package services;
 
-import static org.junit.Assert.*;
-
-import play.db.jpa.*;
-
-import org.dbunit.*;
-import org.dbunit.dataset.*;
-import org.dbunit.dataset.xml.*;
-import org.dbunit.operation.*;
+import models.Usuario;
+import org.dbunit.JndiDatabaseTester;
+import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
+import org.dbunit.operation.DatabaseOperation;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import play.Environment;
+import play.db.jpa.JPAApi;
+import play.inject.Injector;
+import play.inject.guice.GuiceApplicationBuilder;
+import services.UsuarioService;
+import services.UsuarioServiceException;
 
 import java.io.FileInputStream;
 
-import play.inject.guice.GuiceApplicationBuilder;
-import play.inject.Injector;
-import play.inject.guice.GuiceInjectorBuilder;
-import play.Environment;
-
-import play.db.jpa.JPAApi;
-
-import models.Usuario;
-import models.UsuarioRepository;
-
-import services.UsuarioService;
-import services.UsuarioServiceException;
+import static org.junit.Assert.*;
 
 public class UsuarioServiceTest {
     static private Injector injector;
