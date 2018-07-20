@@ -1,7 +1,6 @@
 package services;
 
 import models.Equipo;
-import models.Tarea;
 import models.Usuario;
 import org.dbunit.JndiDatabaseTester;
 import org.dbunit.dataset.IDataSet;

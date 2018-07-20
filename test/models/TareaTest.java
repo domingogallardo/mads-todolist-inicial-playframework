@@ -1,37 +1,24 @@
 package models;
 
-import org.junit.*;
-
-import static org.junit.Assert.*;
-
-import play.db.Database;
-import play.db.Databases;
-import play.db.jpa.*;
-
+import org.dbunit.JndiDatabaseTester;
+import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
+import org.dbunit.operation.DatabaseOperation;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import play.Environment;
 import play.Logger;
-
-import java.sql.*;
-
-import org.dbunit.*;
-import org.dbunit.dataset.*;
-import org.dbunit.dataset.xml.*;
-import org.dbunit.operation.*;
+import play.db.Database;
+import play.db.jpa.JPAApi;
+import play.inject.Injector;
+import play.inject.guice.GuiceApplicationBuilder;
 
 import java.io.FileInputStream;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
-import java.util.List;
-
-import play.inject.guice.GuiceApplicationBuilder;
-import play.inject.Injector;
-import play.inject.guice.GuiceInjectorBuilder;
-import play.Environment;
-
-import models.Usuario;
-import models.Tarea;
-import models.UsuarioRepository;
-import models.JPAUsuarioRepository;
-import models.TareaRepository;
-import models.JPATareaRepository;
+import static org.junit.Assert.*;
 
 public class TareaTest {
     static Database db;
@@ -57,10 +44,6 @@ public class TareaTest {
         databaseTester.setDataSet(initialDataSet);
         databaseTester.setSetUpOperation(DatabaseOperation.CLEAN_INSERT);
         databaseTester.onSetup();
-    }
-
-    private TareaRepository newTareaRepository() {
-        return injector.instanceOf(TareaRepository.class);
     }
 
     private UsuarioRepository newUsuarioRepository() {
@@ -102,8 +85,8 @@ public class TareaTest {
 
     @Test
     public void testAddTareaJPARepositoryInsertsTareaDatabase() {
-        UsuarioRepository usuarioRepository = newUsuarioRepository();
-        TareaRepository tareaRepository = newTareaRepository();
+        UsuarioRepository usuarioRepository = injector.instanceOf(UsuarioRepository.class);
+        TareaRepository tareaRepository = injector.instanceOf(TareaRepository.class);
         Usuario usuario = new Usuario("juangutierrez", "juangutierrez@gmail.com");
         usuario = usuarioRepository.add(usuario);
         Tarea tarea = new Tarea(usuario, "Renovar DNI");
@@ -127,14 +110,14 @@ public class TareaTest {
 
     @Test
     public void testFindTareaPorId() {
-        TareaRepository repository = newTareaRepository();
+        TareaRepository repository = injector.instanceOf(TareaRepository.class);
         Tarea tarea = repository.findById(1001L);
         assertEquals("Renovar DNI", tarea.getTitulo());
     }
 
     @Test
     public void testFindAllTareasUsuario() {
-        UsuarioRepository repository = newUsuarioRepository();
+        UsuarioRepository repository = injector.instanceOf(UsuarioRepository.class);
         Usuario usuario = repository.findById(1000L);
         assertEquals(2, usuario.getTareas().size());
     }
