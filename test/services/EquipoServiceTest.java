@@ -2,6 +2,7 @@ package services;
 
 import models.Equipo;
 import models.Tarea;
+import models.Usuario;
 import org.dbunit.JndiDatabaseTester;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
@@ -15,6 +16,7 @@ import play.inject.Injector;
 import play.inject.guice.GuiceApplicationBuilder;
 
 import java.io.FileInputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -50,5 +52,41 @@ public class EquipoServiceTest {
         EquipoService equipoService = injector.instanceOf(EquipoService.class);
         List<Equipo> equipos = equipoService.allEquipos();
         assertEquals(2, equipos.size());
+    }
+
+    @Test
+    public void addUsuarioEquipo() {
+        EquipoService equipoService = injector.instanceOf(EquipoService.class);
+        UsuarioService usuarioService = injector.instanceOf(UsuarioService.class);
+        equipoService.addUsuarioEquipo("juangutierrez", "Equipo A");
+        Usuario usuario = usuarioService.findUsuarioPorLogin("juangutierrez");
+        List<Equipo> equipos = new ArrayList(usuario.getEquipos());
+        assertEquals(1, equipos.size());
+        assertEquals("Equipo A", equipos.get(0).getNombre());
+    }
+
+    @Test
+    public void getUsuariosEquipo() {
+        EquipoService equipoService = injector.instanceOf(EquipoService.class);
+        UsuarioService usuarioService = injector.instanceOf(UsuarioService.class);
+        equipoService.addUsuarioEquipo("juangutierrez", "Equipo A");
+        equipoService.addUsuarioEquipo("anagarcia", "Equipo A");
+        List<Usuario> usuarios = equipoService.findUsuariosEquipo("Equipo A");
+        assertEquals(2, usuarios.size());
+        Usuario usuario = usuarioService.findUsuarioPorLogin("juangutierrez");
+        assertEquals(1, usuario.getEquipos().size());
+    }
+
+    @Test
+    public void deleteUsuarioEquipo() {
+        EquipoService equipoService = injector.instanceOf(EquipoService.class);
+        UsuarioService usuarioService = injector.instanceOf(UsuarioService.class);
+        equipoService.addUsuarioEquipo("juangutierrez", "Equipo A");
+        equipoService.addUsuarioEquipo("anagarcia", "Equipo A");
+        equipoService.deleteUsuarioEquipo("juangutierrez", "Equipo A");
+        List<Usuario> usuarios = equipoService.findUsuariosEquipo("Equipo A");
+        assertEquals(1, usuarios.size());
+        Usuario usuario = usuarioService.findUsuarioPorLogin("juangutierrez");
+        assertEquals(0, usuario.getEquipos().size());
     }
 }

@@ -35,11 +35,31 @@ public class JPAEquipoRepository implements EquipoRepository {
     }
 
     @Override
-    public void delete(Long idEquipo) {
+    public void delete(Equipo equipo) {
         jpaApi.withTransaction( () -> {
             EntityManager entityManager = jpaApi.em();
-            Equipo equipoBD = entityManager.getReference(Equipo.class, idEquipo);
+            Equipo equipoBD = entityManager.getReference(Equipo.class, equipo.getId());
             entityManager.remove(equipoBD);
+        });
+    }
+
+    @Override
+    public void addUsuarioEquipo(Usuario usuario, Equipo equipo) {
+        jpaApi.withTransaction( () -> {
+            EntityManager entityManager = jpaApi.em();
+            Equipo equipoBD = entityManager.merge(equipo);
+            Usuario usuarioBD = entityManager.merge(usuario);
+            equipoBD.addUsuario(usuarioBD);
+        });
+    }
+
+    @Override
+    public void deleteUsuarioEquipo(Usuario usuario, Equipo equipo) {
+        jpaApi.withTransaction( () -> {
+            EntityManager entityManager = jpaApi.em();
+            Equipo equipoBD = entityManager.merge(equipo);
+            Usuario usuarioBD = entityManager.merge(usuario);
+            equipoBD.removeUsuario(usuarioBD);
         });
     }
 
@@ -70,6 +90,18 @@ public class JPAEquipoRepository implements EquipoRepository {
             TypedQuery<Equipo> query = entityManager.createQuery(
                     "select e from Equipo e", Equipo.class);
             return query.getResultList();
+        });
+    }
+
+    public List<Usuario> findUsuariosEquipo(String nombreEquipo) {
+        return jpaApi.withTransaction(entityManager -> {
+            TypedQuery<Usuario> query = entityManager.createQuery(
+                    "select u from Usuario u join u.equipos e where e.nombre = :nombreEquipo", Usuario.class);
+            try {
+                return query.setParameter("nombreEquipo", nombreEquipo).getResultList();
+            } catch (NoResultException ex) {
+                return null;
+            }
         });
     }
 }

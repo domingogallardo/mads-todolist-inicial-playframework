@@ -109,8 +109,9 @@ public class EquipoTest {
     @Test
     public void testDeleteEquipo() {
         EquipoRepository repository = injector.instanceOf(EquipoRepository.class);
-        repository.delete(1003L);
         Equipo equipo = repository.findById(1003L);
+        repository.delete(equipo);
+        equipo = repository.findById(1003L);
         assertNull(equipo);
     }
 }

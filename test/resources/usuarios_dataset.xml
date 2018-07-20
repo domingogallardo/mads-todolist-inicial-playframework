@@ -2,8 +2,11 @@
  <dataset>
     <Usuario id="1000" login="juangutierrez" nombre="Juan" apellidos="Gutierrez"
          password="123456789" eMail="juan.gutierrez@gmail.com" fechaNacimiento="1993-12-10"/>
+    <Usuario id="1005" login="anagarcia" nombre="Ana" apellidos="Garcia"
+             password="123456789" eMail="ana.garcia@gmail.com" fechaNacimiento="1993-02-08"/>
     <Tarea id="1001" titulo="Renovar DNI" usuarioId="1000"/>
     <Tarea id="1002" titulo="Práctica 1 MADS" usuarioId="1000"/>
     <Equipo id="1003" nombre="Equipo A"/>
     <Equipo id="1004" nombre="Equipo B"/>
+    <Equipo_Usuario/>
  </dataset>

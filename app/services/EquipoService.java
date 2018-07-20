@@ -1,9 +1,6 @@
 package services;
 
-import models.Equipo;
-import models.EquipoRepository;
-import models.Tarea;
-import models.Usuario;
+import models.*;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -12,10 +9,12 @@ import java.util.List;
 
 public class EquipoService {
     EquipoRepository equipoRepository;
+    UsuarioRepository usuarioRepository;
 
     @Inject
-    public EquipoService(EquipoRepository equipoRepository) {
+    public EquipoService(EquipoRepository equipoRepository, UsuarioRepository usuarioRepository) {
         this.equipoRepository = equipoRepository;
+        this.usuarioRepository = usuarioRepository;
     }
 
 
@@ -31,5 +30,38 @@ public class EquipoService {
         List<Equipo> equipos = equipoRepository.findAll();
         Collections.sort(equipos, (a, b) -> a.getId() < b.getId() ? -1 : a.getId() == b.getId() ? 0 : 1);
         return equipos;
+    }
+
+    public void addUsuarioEquipo(String login, String nombreEquipo) {
+        Equipo equipo = equipoRepository.findByNombre(nombreEquipo);
+        if (equipo == null) {
+            throw new EquipoServiceException("No existe el equipo: " + nombreEquipo);
+        }
+        Usuario usuario = usuarioRepository.findByLogin(login);
+        if (usuario == null) {
+            throw new EquipoServiceException("No existe el usuario con login: " + login);
+        }
+        equipoRepository.addUsuarioEquipo(usuario, equipo);
+    }
+
+    public void deleteUsuarioEquipo(String login, String nombreEquipo) {
+        Equipo equipo = equipoRepository.findByNombre(nombreEquipo);
+        if (equipo == null) {
+            throw new EquipoServiceException("No existe el equipo: " + nombreEquipo);
+        }
+        Usuario usuario = usuarioRepository.findByLogin(login);
+        if (usuario == null) {
+            throw new EquipoServiceException("No existe el usuario con login: " + login);
+        }
+        equipoRepository.deleteUsuarioEquipo(usuario, equipo);
+    }
+
+    public List<Usuario> findUsuariosEquipo(String nombreEquipo) {
+        List<Usuario> usuarios = new ArrayList<>();
+        Equipo equipo = equipoRepository.findByNombre(nombreEquipo);
+        if (equipo != null) {
+            usuarios = equipoRepository.findUsuariosEquipo(nombreEquipo);
+        }
+        return usuarios;
     }
 }
