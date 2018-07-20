@@ -2,7 +2,9 @@ package models;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Usuario {
@@ -18,9 +20,9 @@ public class Usuario {
     private Date fechaNacimiento;
     // Relación uno-a-muchos entre usuario y tarea
     @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
-    private Set<Tarea> tareas = new HashSet<Tarea>();
+    private Set<Tarea> tareas = new HashSet<>();
     @ManyToMany(mappedBy = "usuarios", fetch = FetchType.EAGER)
-    private List<Equipo> equipos = new ArrayList<>();
+    private Set<Equipo> equipos = new HashSet<>();
 
     // Un constructor vacío necesario para JPA
     public Usuario() {
@@ -94,11 +96,7 @@ public class Usuario {
         return tareas;
     }
 
-    public void setTareas(Set<Tarea> tareas) {
-        this.tareas = tareas;
-    }
-
-    public List<Equipo> getEquipos() {
+    public Set<Equipo> getEquipos() {
         return equipos;
     }
 
