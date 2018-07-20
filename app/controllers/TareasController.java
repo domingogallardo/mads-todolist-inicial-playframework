@@ -11,6 +11,8 @@ import play.mvc.Security;
 import security.ActionAuthenticator;
 import services.TareaService;
 import services.UsuarioService;
+
+// Es necesario importar las vistas que se van a usar
 import views.html.formModificacionTarea;
 import views.html.formNuevaTarea;
 import views.html.listaTareas;

@@ -9,6 +9,8 @@ import play.mvc.Result;
 import play.mvc.Security;
 import security.ActionAuthenticator;
 import services.UsuarioService;
+
+// Es necesario importar las vistas que se van a usar
 import views.html.detalleUsuario;
 import views.html.formLogin;
 import views.html.formRegistro;
