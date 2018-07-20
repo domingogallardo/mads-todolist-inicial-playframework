@@ -75,7 +75,7 @@ public class TareaServiceTest {
     @Test
     public void modificacionTarea() {
         TareaService tareaService = newTareaService();
-        long idTarea = 1000L;
+        long idTarea = 1001L;
         tareaService.modificaTarea(idTarea, "Pagar el alquiler");
         Tarea tarea = tareaService.obtenerTarea(idTarea);
         assertEquals("Pagar el alquiler", tarea.getTitulo());
@@ -84,7 +84,7 @@ public class TareaServiceTest {
     @Test
     public void borradoTarea() {
         TareaService tareaService = newTareaService();
-        long idTarea = 1000L;
+        long idTarea = 1001L;
         tareaService.borraTarea(idTarea);
         assertNull(tareaService.obtenerTarea(idTarea));
     }

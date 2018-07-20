@@ -2,7 +2,6 @@ import com.google.inject.AbstractModule;
 import java.time.Clock;
 
 import models.*;
-
 import services.ApplicationTimer;
 import services.AtomicCounter;
 import services.Counter;
@@ -30,6 +29,7 @@ public class Module extends AbstractModule {
         bind(Counter.class).to(AtomicCounter.class);
 
         // Bindings de la aplicación
+        bind(EquipoRepository.class).to(JPAEquipoRepository.class);
         bind(UsuarioRepository.class).to(JPAUsuarioRepository.class);
         bind(TareaRepository.class).to(JPATareaRepository.class);
     }

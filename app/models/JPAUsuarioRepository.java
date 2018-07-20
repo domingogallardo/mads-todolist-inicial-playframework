@@ -5,6 +5,7 @@ import play.db.jpa.JPAApi;
 import javax.inject.Inject;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
+import java.util.List;
 
 public class JPAUsuarioRepository implements UsuarioRepository {
     // Objeto definido por Play para acceder al API de JPA

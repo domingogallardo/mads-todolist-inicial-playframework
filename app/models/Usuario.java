@@ -2,9 +2,7 @@ package models;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class Usuario {
@@ -20,7 +18,9 @@ public class Usuario {
     private Date fechaNacimiento;
     // Relación uno-a-muchos entre usuario y tarea
     @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
-    public Set<Tarea> tareas = new HashSet<Tarea>();
+    private Set<Tarea> tareas = new HashSet<Tarea>();
+    @ManyToMany(mappedBy = "usuarios", fetch = FetchType.EAGER)
+    private List<Equipo> equipos = new ArrayList<>();
 
     // Un constructor vacío necesario para JPA
     public Usuario() {
@@ -98,6 +98,10 @@ public class Usuario {
         this.tareas = tareas;
     }
 
+    public List<Equipo> getEquipos() {
+        return equipos;
+    }
+
     public String toString() {
         String fechaStr = null;
         if (fechaNacimiento != null) {
@@ -122,9 +126,10 @@ public class Usuario {
         if (this == obj) return true;
         if (getClass() != obj.getClass()) return false;
         Usuario other = (Usuario) obj;
-        // Si tenemos los ID, comparamos por ID
-        if (id != null && other.id != null)
+        if (id != null && other.id != null) {
+            // Si tenemos los ID, comparamos por ID
             return (id == other.id);
+        }
             // sino comparamos por campos obligatorios
         else {
             if (login == null) {
