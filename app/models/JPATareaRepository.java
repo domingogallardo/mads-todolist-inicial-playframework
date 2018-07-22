@@ -15,9 +15,17 @@ public class JPATareaRepository implements TareaRepository {
 
     public Tarea add(Tarea tarea) {
         return jpaApi.withTransaction(entityManager -> {
+            if (tarea.getUsuario() == null) {
+                throw new TareaRepositoryException("La tarea debe tener un usuario asociado");
+            }
             entityManager.persist(tarea);
             entityManager.flush();
             entityManager.refresh(tarea);
+            // Lo anterior es suficiente para que se actualice la relación
+            // tarea-usuario en la base de datos. La siguiente línea
+            // es para actualizar la relación en memoria, por si alguien
+            // recupera el usuario de la tarea y accede a su lista de tareas.
+            tarea.getUsuario().getTareas().add(tarea);
             return tarea;
         });
     }

@@ -1,6 +1,7 @@
 package services;
 
 import models.Tarea;
+import models.Usuario;
 import org.dbunit.JndiDatabaseTester;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
@@ -57,7 +58,10 @@ public class TareaServiceTest {
     public void nuevaTareaUsuario() {
         TareaService tareaService = injector.instanceOf(TareaService.class);
         long idUsuario = 1000L;
-        tareaService.nuevaTarea(idUsuario, "Pagar el alquiler");
+        Tarea tarea = tareaService.nuevaTarea(idUsuario, "Pagar el alquiler");
+        // El usuario en la tarea devuelta ya tiene actualizada la lista de tareas
+        assertEquals(3, tarea.getUsuario().getTareas().size());
+        // El método allTareasUsuario devuelve correctamente la lista actualizada de tareas
         assertEquals(3, tareaService.allTareasUsuario(1000L).size());
     }
 
@@ -76,5 +80,16 @@ public class TareaServiceTest {
         long idTarea = 1001L;
         tareaService.borraTarea(idTarea);
         assertNull(tareaService.obtenerTarea(idTarea));
+        // Comprobamos también que la tarea se ha eliminado también de la lista de tareas
+        // recuperadas del usuario
+        assertEquals(1, tareaService.allTareasUsuario(1000L).size());
+    }
+
+    @Test
+    public void cambiaUsuarioTarea() {
+        TareaService tareaService = injector.instanceOf(TareaService.class);
+        tareaService.cambiaUsuarioTarea(1001L, 1005L);
+        assertEquals(1, tareaService.allTareasUsuario(1000L).size());
+        assertEquals(1, tareaService.allTareasUsuario(1005L).size());
     }
 }
