@@ -32,10 +32,6 @@ public class UsuarioServiceTest {
         injector.instanceOf(JPAApi.class);
     }
 
-    private UsuarioService newUsuarioService() {
-        return injector.instanceOf(UsuarioService.class);
-    }
-
     @Before
     public void initData() throws Exception {
         JndiDatabaseTester databaseTester = new JndiDatabaseTester("DBTodoList");
@@ -47,7 +43,7 @@ public class UsuarioServiceTest {
 
     @Test
     public void crearNuevoUsuarioCorrectoTest() {
-        UsuarioService usuarioService = newUsuarioService();
+        UsuarioService usuarioService = injector.instanceOf(UsuarioService.class);
         Usuario usuario = usuarioService.creaUsuario("luciaruiz", "lucia.ruiz@gmail.com", "123456");
         assertNotNull(usuario.getId());
         assertEquals("luciaruiz", usuario.getLogin());
@@ -57,14 +53,14 @@ public class UsuarioServiceTest {
 
     @Test(expected = UsuarioServiceException.class)
     public void crearNuevoUsuarioLoginRepetidoLanzaExcepcion() {
-        UsuarioService usuarioService = newUsuarioService();
+        UsuarioService usuarioService = injector.instanceOf(UsuarioService.class);
         // En la BD de prueba usuarios_dataset se ha cargado el usuario juangutierrez
         Usuario usuario = usuarioService.creaUsuario("juangutierrez", "juan.gutierrez@gmail.com", "123456");
     }
 
     @Test
     public void findUsuarioPorLogin() {
-        UsuarioService usuarioService = newUsuarioService();
+        UsuarioService usuarioService = injector.instanceOf(UsuarioService.class);
         // En la BD de prueba usuarios_dataset se ha cargado el usuario juangutierrez
         Usuario usuario = usuarioService.findUsuarioPorLogin("juangutierrez");
         assertNotNull(usuario);
@@ -74,7 +70,7 @@ public class UsuarioServiceTest {
 
     @Test
     public void loginUsuarioExistenteTest() {
-        UsuarioService usuarioService = newUsuarioService();
+        UsuarioService usuarioService = injector.instanceOf(UsuarioService.class);
         // En la BD de prueba usuarios_dataset se ha cargado el usuario juangutierrez
         Usuario usuario = usuarioService.login("juangutierrez", "123456789");
         assertEquals((Long) 1000L, usuario.getId());
@@ -82,7 +78,7 @@ public class UsuarioServiceTest {
 
     @Test
     public void loginUsuarioNoExistenteTest() {
-        UsuarioService usuarioService = newUsuarioService();
+        UsuarioService usuarioService = injector.instanceOf(UsuarioService.class);
         // En la BD de prueba usuarios_dataset se ha cargado el usuario juangutierrez
         Usuario usuario = usuarioService.login("juan", "123456789");
         assertNull(usuario);
@@ -90,7 +86,7 @@ public class UsuarioServiceTest {
 
     @Test
     public void findUsuarioPorId() {
-        UsuarioService usuarioService = newUsuarioService();
+        UsuarioService usuarioService = injector.instanceOf(UsuarioService.class);
         // En la BD de prueba usuarios_dataset se ha cargado el usuario juangutierrez
         Usuario usuario = usuarioService.findUsuarioPorId(1000L);
         assertNotNull(usuario);

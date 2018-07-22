@@ -39,13 +39,9 @@ public class TareaServiceTest {
         databaseTester.onSetup();
     }
 
-    private TareaService newTareaService() {
-        return injector.instanceOf(TareaService.class);
-    }
-
     @Test
     public void allTareasUsuarioEstanOrdenadas() {
-        TareaService tareaService = newTareaService();
+        TareaService tareaService = injector.instanceOf(TareaService.class);
         List<Tarea> tareas = tareaService.allTareasUsuario(1000L);
         assertEquals("Renovar DNI", tareas.get(0).getTitulo());
         assertEquals("Práctica 1 MADS", tareas.get(1).getTitulo());
@@ -53,13 +49,13 @@ public class TareaServiceTest {
 
     @Test(expected = TareaServiceException.class)
     public void crearNuevoUsuarioLoginRepetidoLanzaExcepcion() {
-        TareaService tareaService = newTareaService();
+        TareaService tareaService = injector.instanceOf(TareaService.class);
         List<Tarea> tareas = tareaService.allTareasUsuario(1001L);
     }
 
     @Test
     public void nuevaTareaUsuario() {
-        TareaService tareaService = newTareaService();
+        TareaService tareaService = injector.instanceOf(TareaService.class);
         long idUsuario = 1000L;
         tareaService.nuevaTarea(idUsuario, "Pagar el alquiler");
         assertEquals(3, tareaService.allTareasUsuario(1000L).size());
@@ -67,7 +63,7 @@ public class TareaServiceTest {
 
     @Test
     public void modificacionTarea() {
-        TareaService tareaService = newTareaService();
+        TareaService tareaService = injector.instanceOf(TareaService.class);
         long idTarea = 1001L;
         tareaService.modificaTarea(idTarea, "Pagar el alquiler");
         Tarea tarea = tareaService.obtenerTarea(idTarea);
@@ -76,7 +72,7 @@ public class TareaServiceTest {
 
     @Test
     public void borradoTarea() {
-        TareaService tareaService = newTareaService();
+        TareaService tareaService = injector.instanceOf(TareaService.class);
         long idTarea = 1001L;
         tareaService.borraTarea(idTarea);
         assertNull(tareaService.obtenerTarea(idTarea));
