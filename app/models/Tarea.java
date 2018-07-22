@@ -18,6 +18,8 @@ public class Tarea {
     public Tarea() {
     }
 
+    // No puede haber tareas sin usuarios, obligamos
+    // a que el constructor de una tarea tenga un usuario
     public Tarea(Usuario usuario, String titulo) {
         this.usuario = usuario;
         this.titulo = titulo;
@@ -45,8 +47,13 @@ public class Tarea {
         return usuario;
     }
 
+    // Intercambia el usuario de una tarea. Actualiza también
+    // la lista de tareas en memoria de los usuarios que intercambian
+    // las tareas.
     public void setUsuario(Usuario usuario) {
+        this.usuario.getTareas().remove(this);
         this.usuario = usuario;
+        usuario.getTareas().add(this);
     }
 
     public String toString() {

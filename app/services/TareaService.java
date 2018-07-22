@@ -26,7 +26,7 @@ public class TareaService {
     public List<Tarea> allTareasUsuario(Long idUsuario) {
         Usuario usuario = usuarioRepository.findById(idUsuario);
         if (usuario == null) {
-            throw new TareaServiceException("Usuario no existente");
+            throw new TareaServiceException("Usuario no existente id: " + idUsuario);
         }
         List<Tarea> tareas = new ArrayList(usuario.getTareas());
         Collections.sort(tareas, (a, b) -> a.getId() < b.getId() ? -1 : a.getId() == b.getId() ? 0 : 1);
@@ -36,7 +36,7 @@ public class TareaService {
     public Tarea nuevaTarea(Long idUsuario, String titulo) {
         Usuario usuario = usuarioRepository.findById(idUsuario);
         if (usuario == null) {
-            throw new TareaServiceException("Usuario no existente");
+            throw new TareaServiceException("Usuario no existente id: " + idUsuario);
         }
         Tarea tarea = new Tarea(usuario, titulo);
         return tareaRepository.add(tarea);
@@ -49,7 +49,7 @@ public class TareaService {
     public Tarea modificaTarea(Long idTarea, String nuevoTitulo) {
         Tarea tarea = tareaRepository.findById(idTarea);
         if (tarea == null)
-            throw new TareaServiceException("No existe tarea");
+            throw new TareaServiceException("No existe tarea id: " + idTarea);
         tarea.setTitulo(nuevoTitulo);
         tarea = tareaRepository.update(tarea);
         return tarea;
@@ -58,7 +58,18 @@ public class TareaService {
     public void borraTarea(Long idTarea) {
         Tarea tarea = tareaRepository.findById(idTarea);
         if (tarea == null)
-            throw new TareaServiceException("No existe tarea");
+            throw new TareaServiceException("No existe tarea id: " + idTarea);
         tareaRepository.delete(tarea);
+    }
+
+    public void cambiaUsuarioTarea(Long idTarea, Long idNuevoUsuario) {
+        Usuario nuevoUsuario = usuarioRepository.findById(idNuevoUsuario);
+        if (nuevoUsuario == null)
+            throw new TareaServiceException("No existe usuario id: " + idNuevoUsuario);
+        Tarea tarea = tareaRepository.findById(idTarea);
+        if (tarea == null)
+            throw new TareaServiceException("No existe tarea id: " + idTarea);
+        tarea.setUsuario(nuevoUsuario);
+        tareaRepository.update(tarea);
     }
 }

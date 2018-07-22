@@ -1,6 +1,7 @@
 package services;
 
 import models.Tarea;
+import models.Usuario;
 import org.dbunit.JndiDatabaseTester;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
@@ -39,13 +40,9 @@ public class TareaServiceTest {
         databaseTester.onSetup();
     }
 
-    private TareaService newTareaService() {
-        return injector.instanceOf(TareaService.class);
-    }
-
     @Test
     public void allTareasUsuarioEstanOrdenadas() {
-        TareaService tareaService = newTareaService();
+        TareaService tareaService = injector.instanceOf(TareaService.class);
         List<Tarea> tareas = tareaService.allTareasUsuario(1000L);
         assertEquals("Renovar DNI", tareas.get(0).getTitulo());
         assertEquals("Práctica 1 MADS", tareas.get(1).getTitulo());
@@ -53,21 +50,24 @@ public class TareaServiceTest {
 
     @Test(expected = TareaServiceException.class)
     public void crearNuevoUsuarioLoginRepetidoLanzaExcepcion() {
-        TareaService tareaService = newTareaService();
+        TareaService tareaService = injector.instanceOf(TareaService.class);
         List<Tarea> tareas = tareaService.allTareasUsuario(1001L);
     }
 
     @Test
     public void nuevaTareaUsuario() {
-        TareaService tareaService = newTareaService();
+        TareaService tareaService = injector.instanceOf(TareaService.class);
         long idUsuario = 1000L;
-        tareaService.nuevaTarea(idUsuario, "Pagar el alquiler");
+        Tarea tarea = tareaService.nuevaTarea(idUsuario, "Pagar el alquiler");
+        // El usuario en la tarea devuelta ya tiene actualizada la lista de tareas
+        assertEquals(3, tarea.getUsuario().getTareas().size());
+        // El método allTareasUsuario devuelve correctamente la lista actualizada de tareas
         assertEquals(3, tareaService.allTareasUsuario(1000L).size());
     }
 
     @Test
     public void modificacionTarea() {
-        TareaService tareaService = newTareaService();
+        TareaService tareaService = injector.instanceOf(TareaService.class);
         long idTarea = 1001L;
         tareaService.modificaTarea(idTarea, "Pagar el alquiler");
         Tarea tarea = tareaService.obtenerTarea(idTarea);
@@ -76,9 +76,20 @@ public class TareaServiceTest {
 
     @Test
     public void borradoTarea() {
-        TareaService tareaService = newTareaService();
+        TareaService tareaService = injector.instanceOf(TareaService.class);
         long idTarea = 1001L;
         tareaService.borraTarea(idTarea);
         assertNull(tareaService.obtenerTarea(idTarea));
+        // Comprobamos también que la tarea se ha eliminado también de la lista de tareas
+        // recuperadas del usuario
+        assertEquals(1, tareaService.allTareasUsuario(1000L).size());
+    }
+
+    @Test
+    public void cambiaUsuarioTarea() {
+        TareaService tareaService = injector.instanceOf(TareaService.class);
+        tareaService.cambiaUsuarioTarea(1001L, 1005L);
+        assertEquals(1, tareaService.allTareasUsuario(1000L).size());
+        assertEquals(1, tareaService.allTareasUsuario(1005L).size());
     }
 }

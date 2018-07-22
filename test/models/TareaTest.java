@@ -46,10 +46,6 @@ public class TareaTest {
         databaseTester.onSetup();
     }
 
-    private UsuarioRepository newUsuarioRepository() {
-        return injector.instanceOf(UsuarioRepository.class);
-    }
-
     @Test
     public void testCrearTarea() {
         Usuario usuario = new Usuario("juangutierrez", "juangutierrez@gmail.com");
