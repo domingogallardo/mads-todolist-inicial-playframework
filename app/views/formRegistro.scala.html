@@ -1,10 +1,5 @@
 @(registroForm: Form[Registro], mensaje: String)
 @main("Registro usuario") {
-    @if(mensaje != "") {
-        <div class="alert alert-danger">
-        @mensaje
-        </div>
-    }
     <h1>Registrar nuevo usuario</h1>
     @helper.form(action = routes.UsuarioController.registroUsuario()) {
         <fieldset>
@@ -17,5 +12,11 @@
             <button type="submit" class="btn btn-primary">Registro</button>
             <a class="btn btn-link" href="@routes.UsuarioController.loginUsuario()">Ir a login</a>
         </p>
+    }
+    @if(mensaje != "") {
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        @mensaje
+        </div>
     }
 }

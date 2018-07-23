@@ -8,6 +8,7 @@ public class Registro {
     @Constraints.Required
     public String login;
     @Constraints.Required
+    @Constraints.Email
     public String email;
     @Constraints.Required
     public String password;
