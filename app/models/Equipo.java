@@ -47,6 +47,8 @@ public class Equipo {
         return usuarios;
     }
 
+    // Métodos de actualización de la relación muchos-a-muchos con usuario
+
     public void addUsuario(Usuario usuario) {
         usuarios.add(usuario);
         usuario.getEquipos().add(this);
@@ -71,6 +73,7 @@ public class Equipo {
 
     @Override
     public int hashCode() {
+        // Devolvemos el hash de los campos obligatorios
         return Objects.hash(nombre);
     }
 }

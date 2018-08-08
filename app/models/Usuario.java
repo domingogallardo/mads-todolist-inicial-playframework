@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -100,6 +101,7 @@ public class Usuario {
         return equipos;
     }
 
+    // Función para imprimr los datos de un usuario
     public String toString() {
         String fechaStr = null;
         if (fechaNacimiento != null) {
@@ -111,14 +113,18 @@ public class Usuario {
                 id, login, password, nombre, apellidos, email, fechaNacimiento);
     }
 
+    // Funciones hashCode y equals para poder comparar usuarios y
+    // necesarias para poder crear un Set de usuarios
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = prime + ((login == null) ? 0 : login.hashCode());
-        result = prime * result + ((email == null) ? 0 : email.hashCode());
-        return result;
+        // Devolvemos el hash de los campos obligatorios
+        return Objects.hash(login, email);
     }
 
+    // Si el usuario tiene un ID (se ha obtenido de la BD)
+    // la comparación se basa en ese ID. Si el ID no existe (el usuario
+    // se ha creado en memoria y todavía no se ha sincronizado con la BD)
+    // la comparación se basa en los atributos obligatorios.
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

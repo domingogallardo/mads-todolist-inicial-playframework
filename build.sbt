@@ -1,4 +1,4 @@
-name := """mads-todolist-2018"""
+name := """mads-todolist-inicial"""
 
 version := "0.1-SNAPSHOT"
 

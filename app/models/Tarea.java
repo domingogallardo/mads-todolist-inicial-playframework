@@ -1,6 +1,7 @@
 package models;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 public class Tarea {
@@ -63,9 +64,8 @@ public class Tarea {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = prime + ((titulo == null) ? 0 : titulo.hashCode());
-        return result;
+        // Devolvemos el hash de los campos obligatorios
+        return Objects.hash(usuario, titulo);
     }
 
     @Override
@@ -88,4 +88,6 @@ public class Tarea {
         }
         return true;
     }
+
+
 }
