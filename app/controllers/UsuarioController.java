@@ -71,6 +71,7 @@ public class UsuarioController extends Controller {
             // Añadimos el id del usuario a la clave `connected` de
             // la sesión de Play
             // https://www.playframework.com/documentation/2.5.x/JavaSessionFlash
+            // Esa clave es la usada en la autenticación
             session("connected", usuario.getId().toString());
             return redirect(controllers.routes.TareasController.listaTareas(usuario.getId()));
         }
@@ -80,7 +81,6 @@ public class UsuarioController extends Controller {
     // https://alexgaribay.com/2014/06/15/authentication-in-play-framework-using-java/
     @Security.Authenticated(ActionAuthenticator.class)
     public Result logout() {
-        String connectedUserStr = session("connected");
         session().remove("connected");
         return redirect(controllers.routes.UsuarioController.loginUsuario());
     }

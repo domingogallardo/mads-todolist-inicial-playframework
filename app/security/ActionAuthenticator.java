@@ -12,6 +12,8 @@ public class ActionAuthenticator extends Security.Authenticator {
     @Override
     public String getUsername(Context ctx) {
         Logger.debug("Conectado: " + session("connected"));
+        // El método session devuelve null si no hay valor y se considera no autorizado
+        // llamándose al método onUnautorized (por defecto se devuelve 401 Non Authorized
         return session("connected");
     }
 

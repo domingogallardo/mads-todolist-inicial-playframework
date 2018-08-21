@@ -1,7 +1,6 @@
 package controllers;
 
 import javax.inject.*;
-import play.*;
 import play.mvc.*;
 
 import services.Counter;
