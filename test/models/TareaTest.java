@@ -40,7 +40,7 @@ public class TareaTest {
     public void initData() throws Exception {
         // Creamos la base de datos de test y le asignamos el nombre JNDI DBTodoList
         JndiDatabaseTester databaseTester = new JndiDatabaseTester("DBTodoList");
-        IDataSet initialDataSet = new FlatXmlDataSetBuilder().build(new FileInputStream("test/resources/usuarios_dataset.xml"));
+        IDataSet initialDataSet = new FlatXmlDataSetBuilder().build(new FileInputStream("test/resources/test_dataset.xml"));
         databaseTester.setDataSet(initialDataSet);
         databaseTester.setSetUpOperation(DatabaseOperation.CLEAN_INSERT);
         databaseTester.onSetup();

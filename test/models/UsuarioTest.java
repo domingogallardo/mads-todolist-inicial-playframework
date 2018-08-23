@@ -45,13 +45,13 @@ public class UsuarioTest {
     // porque la ha creado JPA al tener la propiedad
     // hibernate.hbm2ddl.auto (en META-INF/persistence.xml) el valor update
     // Los datos de prueba se definen en el fichero
-    // test/resources/usuarios_dataset.xml
+    // test/resources/test_dataset.xml
     @Before
     public void initData() throws Exception {
         // Creamos la base de datos de test y le asignamos el nombre JNDI DBTodoList
         JndiDatabaseTester databaseTester = new JndiDatabaseTester("DBTodoList");
         IDataSet initialDataSet = new FlatXmlDataSetBuilder().build(new
-                FileInputStream("test/resources/usuarios_dataset.xml"));
+                FileInputStream("test/resources/test_dataset.xml"));
         databaseTester.setDataSet(initialDataSet);
         // Definimos como operación SetUp CLEAN_INSERT, que hace un
         // DELETE_ALL de todas las tablase del dataset, seguido por un
