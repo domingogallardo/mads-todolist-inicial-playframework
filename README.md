@@ -43,7 +43,7 @@ para ejecutar el proyecto. La imagen docker tiene como comando principal `sbt`,
 y lo único que hay que hacer es escribir `run`:
 
 ```
-[mads-todolist-2017] $ run
+[mads-todolist-inicial] $ run
 ```
 
 Podrás acceder a la aplicación web en el ordenador host en <http:localhost:9000>.
