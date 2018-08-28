@@ -2,12 +2,15 @@
 
 Realizada por Domingo Gallardo.
 
-La práctica consiste en un proyecto implementado en [Play Framework 2.5](https://www.playframework.com/documentation/2.5.x/Home) para gestionar las tareas pendientes de un conjunto de usuarios de una empresa.
+La práctica consiste en un proyecto implementado en [Play Framework
+2.5](https://www.playframework.com/documentation/2.5.x/Home) para
+gestionar las tareas pendientes de un conjunto de usuarios de una
+empresa.
 
-Aquí hay una breve descripción de cómo lanzar la práctica. La documentación
-completa de la práctica se encuentra en el repositorio
+Aquí hay una breve descripción de cómo lanzar la práctica. La
+documentación completa de la práctica se encuentra en el repositorio
 [apuntes-mads](https://github.com/domingogallardo/apuntes-mads), en el
-documento [Práctica 1: Primera aplicación Play Framework Java](https://github.com/domingogallardo/apuntes-mads/blob/master/practicas/01-introduccion-play/introduccion-play.md).
+documento [Introducción a Play Framework para las prácticas de MADS](https://github.com/domingogallardo/apuntes-mads/blob/master/practicas/01-introduccion-play/intro-play-teoria.md)
 
 
 ## Cómo ejecutar el proyecto
@@ -32,7 +35,7 @@ También es posible probar el proyecto usando una imagen de Docker.
 Descarga el proyecto y, dentro del directorio, ejecuta:
 
 ```
-docker run -it --rm -v ${PWD}:/code -p 80:9000 domingogallardo/playframework
+docker run -it --rm -v ${PWD}:/code -p 9000:9000 domingogallardo/playframework
 ```
 
 Esto lanza una imagen docker que contiene todas las dependencias necesarias
@@ -43,4 +46,4 @@ y lo único que hay que hacer es escribir `run`:
 [mads-todolist-2017] $ run
 ```
 
-Podrás acceder a la aplicación web en el ordenador host en <http:localhost>.
+Podrás acceder a la aplicación web en el ordenador host en <http:localhost:9000>.
