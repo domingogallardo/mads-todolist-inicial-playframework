@@ -33,7 +33,7 @@ También es posible probar el proyecto usando una imagen de Docker.
 Descarga el proyecto y, dentro del directorio, ejecuta:
 
 ```
-docker run -it --rm -v ${PWD}:/code -p 9000:9000 domingogallardo/playframework
+docker run -it --rm -v "${PWD}:/code" -p 9000:9000 domingogallardo/playframework
 ```
 
 Esto lanza una imagen docker que contiene todas las dependencias necesarias
