@@ -1,16 +1,14 @@
 # Práctica asignatura MADS
 
-Realizada por Domingo Gallardo.
-
 La práctica consiste en un proyecto implementado en [Play Framework
 2.5](https://www.playframework.com/documentation/2.5.x/Home) para
-gestionar las tareas pendientes de un conjunto de usuarios de una
-empresa.
+gestionar las tareas pendientes de un conjunto de usuarios.
 
-Aquí hay una breve descripción de cómo lanzar la práctica. La
-documentación completa de la práctica se encuentra en el repositorio
+Aquí puedes encontrar una breve descripción de cómo lanzar la
+práctica. La documentación completa se encuentra en el repositorio
 [apuntes-mads](https://github.com/domingogallardo/apuntes-mads), en el
-documento [Introducción a Play Framework para las prácticas de MADS](https://github.com/domingogallardo/apuntes-mads/blob/master/practicas/01-introduccion-play/intro-play-teoria.md)
+documento [Introducción a Play Framework para las prácticas de
+MADS](https://github.com/domingogallardo/apuntes-mads/blob/master/practicas/01-introduccion-play/intro-play-teoria.md)
 
 
 ## Cómo ejecutar el proyecto
