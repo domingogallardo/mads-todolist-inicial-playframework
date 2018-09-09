@@ -1,20 +1,39 @@
 @(loginForm: Form[Login], mensaje: String)
 @main("Registro usuario") {
-    <h1>Login</h1>
-    @helper.form(action = routes.UsuarioController.loginUsuario()) {
-        <fieldset>
-            @helper.inputText(loginForm("username"), '_label -> "Usuario")
-            @helper.inputPassword(loginForm("password"), '_label -> "Contraseña")
-        </fieldset>
-        <p>
-            <button type="submit" class="btn btn-primary">Login</button>
-            <a class="btn btn-link" href="@routes.UsuarioController.registroUsuario()">Ir a registro</a>
-        </p>
-    }
-    @if(mensaje != "") {
-        <div class="alert alert-danger alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        @mensaje
+    <div class="container-fluid">
+
+        <div class="row justify-content-center mb-3">
+            <div class="col-auto">
+                <h2>Login</h2>
+            </div>
         </div>
-    }
+
+        <div class="row justify-content-center">
+            <div class="col-6">
+                @helper.form(action = routes.UsuarioController.loginUsuario()) {
+                    <div class="form-group">
+                        <label for="usuarioInput">Usuario</label>
+                        <input type="text" class="form-control" name="username" id="usuarioInput" placeholder="Introduce tu usuario">
+                    </div>
+                    <div class="form-group">
+                        <label for="passwdInput">Contraseña</label>
+                        <input type="password" class="form-control" name="password" id="passwdInput" placeholder="Introduce tu contraseña">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                    <a class="btn btn-link" href="@routes.UsuarioController.registroUsuario()">Ir a registro</a>
+                }
+            </div>
+        </div>
+
+        <div class="row mt-3 justify-content-center">
+            <div class="col-6">
+                @if(mensaje != "") {
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    @mensaje
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
 }

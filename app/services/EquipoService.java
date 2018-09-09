@@ -39,7 +39,7 @@ public class EquipoService {
         }
         Usuario usuario = usuarioRepository.findByLogin(login);
         if (usuario == null) {
-            throw new EquipoServiceException("No existe el usuario con login: " + login);
+            throw new EquipoServiceException("No existe el usuario con username: " + login);
         }
         equipoRepository.addUsuarioEquipo(usuario, equipo);
     }
@@ -51,7 +51,7 @@ public class EquipoService {
         }
         Usuario usuario = usuarioRepository.findByLogin(login);
         if (usuario == null) {
-            throw new EquipoServiceException("No existe el usuario con login: " + login);
+            throw new EquipoServiceException("No existe el usuario con username: " + login);
         }
         equipoRepository.deleteUsuarioEquipo(usuario, equipo);
     }

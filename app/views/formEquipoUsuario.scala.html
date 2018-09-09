@@ -1,16 +1,22 @@
 @()
 @main("Añadir nuevo usuario a equipo") {
-    <h1>Nuevo equipo</h1>
-    @helper.form(action = routes.EquipoController.addUsuarioEquipo()) {
-        <fieldset>
-            <legend>Añadir nuevo usuario a equipo</legend>
-            <label>Nombre equipo: </label>
-            <input type="text" name="equipo" size="70">
-            <label>Login usuario: </label>
-            <input type="text" name="usuario" size="40">
-        </fieldset>
-        <p>
-            <input type="submit" class="btn btn-primary" value="Guardar">
-        </p>
-    }
+    <div class="container-fluid">
+        <h1>Nuevo equipo</h1>
+        @helper.form(action = routes.EquipoController.addUsuarioEquipo()) {
+            <fieldset>
+                <legend>Añadir nuevo usuario a equipo</legend>
+                <p>
+                    <label>Nombre equipo: </label>
+                    <input type="text" name="equipo" size="70">
+                </p>
+                <p>
+                    <label>Login usuario: </label>
+                    <input type="text" name="usuario" size="40">
+                </p>
+                <p>
+                    <input type="submit" class="btn btn-primary" value="Guardar">
+                </p>
+            </fieldset>
+        }
+    </div>
 }

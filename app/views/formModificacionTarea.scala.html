@@ -1,21 +1,23 @@
 @(idUsuario: Long, idTarea: Long, titulo: String, mensaje: String)
 @main("Modificar Tarea") {
-    <h1>Modificar tarea</h1>
-    @helper.form(action = routes.TareasController.grabaTareaModificada(idTarea)) {
-        <fieldset>
-            <legend>Tarea</legend>
-            Título:  <input type="text" size=70 name="titulo" value= "@titulo">
-        </fieldset>
-        <p/>
-        <p>
-            <input type="submit" class="btn btn-primary" value="Guardar">
-            <a class="btn btn-warning" href="@routes.TareasController.listaTareas(idUsuario)">Cancelar</a>
-        </p>
-    }
-    @if(mensaje != "") {
-        <div class="alert alert-danger alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            @mensaje
-        </div>
-    }
+    <div class="container-fluid">
+
+        <h1>Modificar tarea</h1>
+        @helper.form(action = routes.TareasController.grabaTareaModificada(idTarea)) {
+            <fieldset>
+                <legend>Tarea</legend>
+                Título:  <input type="text" size=70 name="titulo" value= "@titulo">
+            <p>
+                <input type="submit" class="btn btn-primary" value="Guardar">
+                <a class="btn btn-warning" href="@routes.TareasController.listaTareas(idUsuario)">Cancelar</a>
+            </p>
+            </fieldset>
+        }
+        @if(mensaje != "") {
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                @mensaje
+            </div>
+        }
+    </div>
 }

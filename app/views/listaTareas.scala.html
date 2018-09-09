@@ -13,38 +13,54 @@
         }
     </script>
 }
-@main("Tareas del usuario @usuario.getLogin()", scripts) {
+@main("Listado de tareas", scripts) {
 
-    <h2> Listado de tareas de @usuario.getLogin()</h2>
+    <div class="container-fluid">
 
-    <table class="table table-striped">
-        <tr>
-            <th>Tareas</th>
-            <th>Acción</th>
-        </tr>
-    @for(tarea <- tareas) {
-        <tr>
-            <td>@tarea.getTitulo()</td>
-            <td><a href="@routes.TareasController.formularioEditaTarea(tarea.getId())">
-                <span class="glyphicon glyphicon-pencil"></span>&nbsp;</a>
-                <a onmouseover="" style="cursor: pointer;"
-                onclick="del('@routes.TareasController.borraTarea(tarea.getId())')">
-                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
-        </tr>
-      }
+        <div class="row mt-2">
+            <div class="col">
+                <h2> Listado de tareas de @usuario.getLogin()</h2>
+            </div>
+        </div>
 
-      <tr>
-          <td><a href="@routes.TareasController.formularioNuevaTarea(usuario.getId())">
-              <span class="glyphicon glyphicon-plus"/></a></td>
-          <td><a href="@routes.UsuarioController.logout()">Salir</a></td>
-      </tr>
+        <div class="row mt-3">
+            <div class="col">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Tareas</th>
+                            <th scope="col">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for(tarea <- tareas) {
+                            <tr>
+                                <td>@tarea.getTitulo()</td>
+                                <td><a href="@routes.TareasController.formularioEditaTarea(tarea.getId())">
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                    <a href="#" onmouseover="" style="cursor: pointer;"
+                                    onclick="del('@routes.TareasController.borraTarea(tarea.getId())')">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+                            </tr>
+                        }
+                        <tr><td><a href="@routes.TareasController.formularioNuevaTarea(usuario.getId())">
+                            <i class="fa fa-plus" aria-hidden="true"></i></a></td>
+                            <td><a href="@routes.UsuarioController.logout()">Salir</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-  </table>
-
-  @if(mensaje != null) {
-      <div class="alert alert-success" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          @mensaje
-      </div>
-  }
+        <div class="row mt-2">
+            <div class="col">
+            @if(mensaje != null) {
+                <div class="alert alert-success" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    @mensaje
+                </div>
+            }
+            </div>
+        </div>
+    </div>
 }

@@ -6,7 +6,7 @@ import play.data.validation.Constraints;
 // en el formulario: https://www.playframework.com/documentation/2.5.x/JavaForms
 public class Registro {
     @Constraints.Required
-    public String login;
+    public String username;
     @Constraints.Required
     @Constraints.Email
     public String email;
@@ -15,12 +15,12 @@ public class Registro {
     @Constraints.Required
     public String confirmacion;
 
-    public String getLogin() {
-        return login;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {

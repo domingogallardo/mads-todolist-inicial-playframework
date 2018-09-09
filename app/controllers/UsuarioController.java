@@ -43,14 +43,14 @@ public class UsuarioController extends Controller {
         }
         Registro datosRegistro = form.get();
 
-        if (usuarioService.findUsuarioPorLogin(datosRegistro.login) != null) {
+        if (usuarioService.findUsuarioPorLogin(datosRegistro.username) != null) {
             return badRequest(formRegistro.render(form, "Login ya existente: escoge otro"));
         }
 
         if (!datosRegistro.password.equals(datosRegistro.confirmacion)) {
             return badRequest(formRegistro.render(form, "No coinciden la contraseña y la confirmación"));
         }
-        Usuario usuario = usuarioService.creaUsuario(datosRegistro.login, datosRegistro.email, datosRegistro.password);
+        Usuario usuario = usuarioService.creaUsuario(datosRegistro.username, datosRegistro.email, datosRegistro.password);
         return redirect(controllers.routes.UsuarioController.formularioLogin());
     }
 

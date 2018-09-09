@@ -1,22 +1,50 @@
 @(registroForm: Form[Registro], mensaje: String)
 @main("Registro usuario") {
-    <h1>Registrar nuevo usuario</h1>
-    @helper.form(action = routes.UsuarioController.registroUsuario()) {
-        <fieldset>
-            @helper.inputText(registroForm("login"), '_label -> "Login")
-            @helper.inputText(registroForm("email"), '_label -> "Email")
-            @helper.inputPassword(registroForm("password"), '_label -> "Contraseña")
-            @helper.inputPassword(registroForm("confirmacion"), '_label -> "Repite contraseña")
-        </fieldset>
-        <p>
-            <button type="submit" class="btn btn-primary">Registro</button>
-            <a class="btn btn-link" href="@routes.UsuarioController.loginUsuario()">Ir a login</a>
-        </p>
-    }
-    @if(mensaje != "") {
-        <div class="alert alert-danger alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        @mensaje
+
+    <div class="container-fluid">
+
+        <div class="row justify-content-center mb-3">
+            <div class="col-auto">
+                <h2>Registro nuevo usuario</h2>
+            </div>
         </div>
-    }
+
+        <div class="row justify-content-center">
+            <div class="col-6">
+                @helper.form(action = routes.UsuarioController.registroUsuario()) {
+
+                    <div class="form-group">
+                        <label for="usuarioInput">Usuario</label>
+                        <input type="text" class="form-control" id="usuarioInput" name="username" placeholder="Introduce tu usuario"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="emailInput">Dirección e-mail</label>
+                        <input type="email" class="form-control" id="emailInput" name="email" aria-describedby="emailHelp" placeholder="Introduce tu e-mail">
+                        <small id="emailHelp" class="form-text text-muted">Introduce una dirección correcta de e-mail.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="passwd1Input">Contraseña</label>
+                        <input type="password" class="form-control" id="passwd1Input" name="password" placeholder="Introduce tu contraseña"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="passwd2Input">Repite contraseña</label>
+                        <input type="password" class="form-control" id="passwd2Input" name="confirmacion" placeholder="Confirma la contraseña"/>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Registro</button>
+                    <a class="btn btn-link" href="@routes.UsuarioController.loginUsuario()">Ir a login</a>
+                }
+            </div>
+        </div>
+
+        <div class="row mt-3 justify-content-center">
+            <div class="col-6">
+            @if(mensaje != "") {
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    @mensaje
+                </div>
+            }
+            </div>
+        </div>
+    </div>
 }
