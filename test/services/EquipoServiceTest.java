@@ -50,29 +50,26 @@ public class EquipoServiceTest {
     public void listaEquipos() {
         EquipoService equipoService = injector.instanceOf(EquipoService.class);
         List<Equipo> equipos = equipoService.allEquipos();
-        assertEquals(2, equipos.size());
+        assertEquals(3, equipos.size());
     }
 
     @Test
     public void addUsuarioEquipo() {
         EquipoService equipoService = injector.instanceOf(EquipoService.class);
         UsuarioService usuarioService = injector.instanceOf(UsuarioService.class);
-        equipoService.addUsuarioEquipo("juangutierrez", "Equipo A");
+        equipoService.addUsuarioEquipo("juangutierrez", "Equipo C");
         Usuario usuario = usuarioService.findUsuarioPorLogin("juangutierrez");
         List<Equipo> equipos = new ArrayList(usuario.getEquipos());
-        assertEquals(1, equipos.size());
-        assertEquals("Equipo A", equipos.get(0).getNombre());
+        assertEquals(3, equipos.size());
     }
 
     @Test
     public void getUsuariosEquipo() {
         EquipoService equipoService = injector.instanceOf(EquipoService.class);
         UsuarioService usuarioService = injector.instanceOf(UsuarioService.class);
-        equipoService.addUsuarioEquipo("juangutierrez", "Equipo A");
-        equipoService.addUsuarioEquipo("anagarcia", "Equipo A");
         List<Usuario> usuarios = equipoService.findUsuariosEquipo("Equipo A");
         assertEquals(2, usuarios.size());
-        Usuario usuario = usuarioService.findUsuarioPorLogin("juangutierrez");
+        Usuario usuario = usuarioService.findUsuarioPorLogin("anagarcia");
         assertEquals(1, usuario.getEquipos().size());
     }
 
@@ -80,12 +77,10 @@ public class EquipoServiceTest {
     public void deleteUsuarioEquipo() {
         EquipoService equipoService = injector.instanceOf(EquipoService.class);
         UsuarioService usuarioService = injector.instanceOf(UsuarioService.class);
-        equipoService.addUsuarioEquipo("juangutierrez", "Equipo A");
-        equipoService.addUsuarioEquipo("anagarcia", "Equipo A");
         equipoService.deleteUsuarioEquipo("juangutierrez", "Equipo A");
         List<Usuario> usuarios = equipoService.findUsuariosEquipo("Equipo A");
         assertEquals(1, usuarios.size());
         Usuario usuario = usuarioService.findUsuarioPorLogin("juangutierrez");
-        assertEquals(0, usuario.getEquipos().size());
+        assertEquals(1, usuario.getEquipos().size());
     }
 }
