@@ -17,6 +17,7 @@ import play.inject.guice.GuiceApplicationBuilder;
 import java.io.FileInputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -117,5 +118,21 @@ public class EquipoTest {
         repository.delete(equipo);
         equipo = repository.findById(1003L);
         assertNull(equipo);
+    }
+
+    @Test
+    public void testAddUsuarioEquipo() {
+        EquipoRepository equipoRepository = injector.instanceOf(EquipoRepository.class);
+        UsuarioRepository usuarioRepository = injector.instanceOf(UsuarioRepository.class);
+        Equipo equipo = equipoRepository.findById(1005L);
+        Usuario usuario = usuarioRepository.findById(1005L);
+        equipoRepository.addUsuarioEquipo(usuario, equipo);
+
+        // Recuperamos las entidades de la base de datos y comprobamos
+        // que los datos se han actualizado
+        List<Usuario> usuarios = equipoRepository.findUsuariosEquipo(equipo.getNombre());
+        assertEquals(1, usuarios.size());
+        Usuario usuarioBD = usuarioRepository.findById(1005L);
+        assertEquals(2, usuarioBD.getEquipos().size());
     }
 }
