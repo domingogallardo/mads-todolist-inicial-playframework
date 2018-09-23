@@ -54,9 +54,6 @@ public class JPAEquipoRepository implements EquipoRepository {
             // El método addUsuario de Equipo actualiza los campos y el
             // cambio se actualiza automáticamente a la base de datos
             equipoBD.addUsuario(usuarioBD);
-            // Actualizamos también los campos en los objetos de memoria que nos
-            // han pasado
-            // equipo.addUsuario(usuario);
         });
     }
 
@@ -67,9 +64,6 @@ public class JPAEquipoRepository implements EquipoRepository {
             Equipo equipoBD = entityManager.find(Equipo.class, equipo.getId());
             Usuario usuarioBD = entityManager.find(Usuario.class, usuario.getId());
             equipoBD.removeUsuario(usuarioBD);
-            // Actualizamos también los campos en los objetos de memoria que nos
-            // han pasado
-            equipo.removeUsuario(usuario);
         });
     }
 
