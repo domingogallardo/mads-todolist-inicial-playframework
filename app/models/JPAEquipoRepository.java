@@ -47,16 +47,9 @@ public class JPAEquipoRepository implements EquipoRepository {
     public void addUsuarioEquipo(Usuario usuario, Equipo equipo) {
         jpaApi.withTransaction( () -> {
             EntityManager entityManager = jpaApi.em();
-            // El usuario y equipo recibidos están desconectados del entity manager
-            // por lo que tenemos que recuperarlos de la base de datos
-            Equipo equipoBD = entityManager.find(Equipo.class, equipo.getId());
-            Usuario usuarioBD = entityManager.find(Usuario.class, usuario.getId());
-            // El método addUsuario de Equipo actualiza los campos y el
-            // cambio se actualiza automáticamente a la base de datos
+            Equipo equipoBD = entityManager.merge(equipo);
+            Usuario usuarioBD = entityManager.merge(usuario);
             equipoBD.addUsuario(usuarioBD);
-            // Actualizamos también los campos en los objetos de memoria que nos
-            // han pasado
-            // equipo.addUsuario(usuario);
         });
     }
 
@@ -64,12 +57,9 @@ public class JPAEquipoRepository implements EquipoRepository {
     public void deleteUsuarioEquipo(Usuario usuario, Equipo equipo) {
         jpaApi.withTransaction( () -> {
             EntityManager entityManager = jpaApi.em();
-            Equipo equipoBD = entityManager.find(Equipo.class, equipo.getId());
-            Usuario usuarioBD = entityManager.find(Usuario.class, usuario.getId());
+            Equipo equipoBD = entityManager.merge(equipo);
+            Usuario usuarioBD = entityManager.merge(usuario);
             equipoBD.removeUsuario(usuarioBD);
-            // Actualizamos también los campos en los objetos de memoria que nos
-            // han pasado
-            equipo.removeUsuario(usuario);
         });
     }
 
