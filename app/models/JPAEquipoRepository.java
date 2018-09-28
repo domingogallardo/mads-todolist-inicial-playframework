@@ -75,20 +75,6 @@ public class JPAEquipoRepository implements EquipoRepository {
     }
 
     @Override
-    public Equipo findByNombre(String nombre) {
-        return jpaApi.withTransaction(entityManager -> {
-            TypedQuery<Equipo> query = entityManager.createQuery(
-                    "select e from Equipo e where e.nombre = :nombre", Equipo.class);
-            try {
-                Equipo equipo = query.setParameter("nombre", nombre).getSingleResult();
-                return equipo;
-            } catch (NoResultException ex) {
-                return null;
-            }
-        });
-    }
-
-    @Override
     public List<Equipo> findAll() {
         return jpaApi.withTransaction(entityManager -> {
             TypedQuery<Equipo> query = entityManager.createQuery(
@@ -97,12 +83,12 @@ public class JPAEquipoRepository implements EquipoRepository {
         });
     }
 
-    public List<Usuario> findUsuariosEquipo(String nombreEquipo) {
+    public List<Usuario> findUsuariosEquipo(Long idEquipo) {
         return jpaApi.withTransaction(entityManager -> {
             TypedQuery<Usuario> query = entityManager.createQuery(
-                    "select u from Usuario u join u.equipos e where e.nombre = :nombreEquipo", Usuario.class);
+                    "select u from Usuario u join u.equipos e where e.id = :idEquipo", Usuario.class);
             try {
-                return query.setParameter("nombreEquipo", nombreEquipo).getResultList();
+                return query.setParameter("idEquipo", idEquipo).getResultList();
             } catch (NoResultException ex) {
                 return null;
             }

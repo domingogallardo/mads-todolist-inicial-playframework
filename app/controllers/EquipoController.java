@@ -53,13 +53,13 @@ public class EquipoController extends Controller {
     @Security.Authenticated(ActionAuthenticator.class)
     public Result addUsuarioEquipo() {
         DynamicForm requestData = formFactory.form().bindFromRequest();
-        String equipo = requestData.get("equipo");
-        String usuario = requestData.get("usuario");
+        Long idEquipo = Long.parseLong(requestData.get("equipo"));
+        Long idUsuario = Long.parseLong(requestData.get("usuario"));
         try {
-            equipoService.addUsuarioEquipo(usuario, equipo);
-            return ok("Usuario " + usuario + " añadido al equipo " + equipo);
+            equipoService.addUsuarioEquipo(idUsuario, idEquipo);
+            return ok("Usuario " + idUsuario + " añadido al equipo " + idEquipo);
         } catch (EquipoServiceException exception) {
-            return notFound("No existe usuario / equipo");
+            return notFound(exception.getMessage());
         }
     }
 }

@@ -130,7 +130,7 @@ public class EquipoTest {
 
         // Recuperamos las entidades de la base de datos y comprobamos
         // que los datos se han actualizado
-        List<Usuario> usuarios = equipoRepository.findUsuariosEquipo(equipo.getNombre());
+        List<Usuario> usuarios = equipoRepository.findUsuariosEquipo(equipo.getId());
         assertEquals(1, usuarios.size());
         Usuario usuarioBD = usuarioRepository.findById(1005L);
         assertEquals(2, usuarioBD.getEquipos().size());
