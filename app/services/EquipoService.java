@@ -17,10 +17,7 @@ public class EquipoService {
         this.usuarioRepository = usuarioRepository;
     }
 
-
     public Equipo addEquipo(String nombre) {
-        if (equipoRepository.findByNombre(nombre) != null)
-            throw new EquipoServiceException("Nombre de equipo ya existe: " + nombre);
         Equipo equipo = new Equipo(nombre);
         return equipoRepository.add(equipo);
     }
@@ -32,35 +29,35 @@ public class EquipoService {
         return equipos;
     }
 
-    public void addUsuarioEquipo(String login, String nombreEquipo) {
-        Equipo equipo = equipoRepository.findByNombre(nombreEquipo);
+    public void addUsuarioEquipo(Long idUsuario, Long idEquipo) {
+        Equipo equipo = equipoRepository.findById(idEquipo);
         if (equipo == null) {
-            throw new EquipoServiceException("No existe el equipo: " + nombreEquipo);
+            throw new EquipoServiceException("No existe el equipo: " + idEquipo);
         }
-        Usuario usuario = usuarioRepository.findByLogin(login);
+        Usuario usuario = usuarioRepository.findById(idUsuario);
         if (usuario == null) {
-            throw new EquipoServiceException("No existe el usuario con username: " + login);
+            throw new EquipoServiceException("No existe el usuario: " + idUsuario);
         }
         equipoRepository.addUsuarioEquipo(usuario, equipo);
     }
 
-    public void deleteUsuarioEquipo(String login, String nombreEquipo) {
-        Equipo equipo = equipoRepository.findByNombre(nombreEquipo);
+    public void deleteUsuarioEquipo(Long idUsuario, Long idEquipo) {
+        Equipo equipo = equipoRepository.findById(idEquipo);
         if (equipo == null) {
-            throw new EquipoServiceException("No existe el equipo: " + nombreEquipo);
+            throw new EquipoServiceException("No existe el equipo: " + idEquipo);
         }
-        Usuario usuario = usuarioRepository.findByLogin(login);
+        Usuario usuario = usuarioRepository.findById(idUsuario);
         if (usuario == null) {
-            throw new EquipoServiceException("No existe el usuario con username: " + login);
+            throw new EquipoServiceException("No existe el usuario con username: " + idUsuario);
         }
         equipoRepository.deleteUsuarioEquipo(usuario, equipo);
     }
 
-    public List<Usuario> findUsuariosEquipo(String nombreEquipo) {
+    public List<Usuario> findUsuariosEquipo(Long idEquipo) {
         List<Usuario> usuarios = new ArrayList<>();
-        Equipo equipo = equipoRepository.findByNombre(nombreEquipo);
+        Equipo equipo = equipoRepository.findById(idEquipo);
         if (equipo != null) {
-            usuarios = equipoRepository.findUsuariosEquipo(nombreEquipo);
+            usuarios = equipoRepository.findUsuariosEquipo(idEquipo);
         }
         return usuarios;
     }

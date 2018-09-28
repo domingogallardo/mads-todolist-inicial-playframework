@@ -11,7 +11,6 @@ public interface EquipoRepository {
 
     // Queries
     Equipo findById(Long idEquipo);
-    Equipo findByNombre(String nombre);
     List<Equipo> findAll();
-    List<Usuario> findUsuariosEquipo(String nombreEquipo);
+    List<Usuario> findUsuariosEquipo(Long idEquipo);
 }
