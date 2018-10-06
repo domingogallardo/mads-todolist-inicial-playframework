@@ -132,7 +132,7 @@ public class Usuario {
         Usuario other = (Usuario) obj;
         if (id != null && other.id != null) {
             // Si tenemos los ID, comparamos por ID
-            return (id == other.id);
+            return ((long) id == (long) other.id);
         }
             // sino comparamos por campos obligatorios
         else {

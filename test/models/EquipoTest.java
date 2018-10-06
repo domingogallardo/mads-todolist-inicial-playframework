@@ -56,9 +56,9 @@ public class EquipoTest {
         Equipo equipo1 = new Equipo("Equipo A");
         Equipo equipo2 = new Equipo("Equipo B");
         Equipo equipo3 = new Equipo("Equipo C");
-        equipo1.setId(1L);
-        equipo2.setId(1L);
-        equipo3.setId(2L);
+        equipo1.setId(1001L);
+        equipo2.setId(1001L);
+        equipo3.setId(1002L);
         assertEquals(equipo1, equipo2);
         assertNotEquals(equipo1, equipo3);
     }
