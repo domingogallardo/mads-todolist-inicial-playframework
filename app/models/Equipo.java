@@ -66,7 +66,7 @@ public class Equipo {
         Equipo other = (Equipo) obj;
         // Si tenemos los ID, comparamos por ID
         if (id != null && other.id != null)
-            return (id == other.id);
+            return ((long) id == (long) other.id);
         // sino comparamos por campos obligatorios
         return nombre.equals(other.nombre);
     }

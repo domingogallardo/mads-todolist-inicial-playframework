@@ -62,9 +62,9 @@ public class TareaTest {
         Tarea tarea1 = new Tarea(usuario, "Práctica 1 de MADS");
         Tarea tarea2 = new Tarea(usuario, "Renovar DNI");
         Tarea tarea3 = new Tarea(usuario, "Pagar el alquiler");
-        tarea1.setId(1L);
-        tarea2.setId(1L);
-        tarea3.setId(2L);
+        tarea1.setId(1001L);
+        tarea2.setId(1001L);
+        tarea3.setId(1002L);
         assertEquals(tarea1, tarea2);
         assertNotEquals(tarea1, tarea3);
     }

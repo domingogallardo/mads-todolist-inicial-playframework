@@ -125,9 +125,9 @@ public class UsuarioTest {
         Usuario usuario1 = new Usuario("juangutierrez", "juangutierrez@gmail.com");
         Usuario usuario2 = new Usuario("mariafernandez", "mariafernandez@gmail.com");
         Usuario usuario3 = new Usuario("antoniolopez", "antoniolopez@gmail.com");
-        usuario1.setId(1L);
-        usuario2.setId(1L);
-        usuario3.setId(2L);
+        usuario1.setId(1001L);
+        usuario2.setId(1001L);
+        usuario3.setId(1002L);
         assertEquals(usuario1, usuario2);
         assertNotEquals(usuario1, usuario3);
     }
