@@ -84,9 +84,9 @@ public class UsuarioTest {
     @Test
     public void testAddUsuarioJPARepositoryInsertsUsuarioDatabase() {
         UsuarioRepository repository = injector.instanceOf(UsuarioRepository.class);
-        Usuario usuario = new Usuario("juangutierrez", "juangutierrez@gmail.com");
+        Usuario usuario = new Usuario("juanperez", "juanperez@gmail.com");
         usuario.setNombre("Juan");
-        usuario.setApellidos("Gutierrez");
+        usuario.setApellidos("Pérez");
         usuario.setPassword("123456789");
         usuario = repository.add(usuario);
         Logger.info("Número de usuario: " + Long.toString(usuario.getId()));

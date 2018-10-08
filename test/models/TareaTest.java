@@ -83,8 +83,7 @@ public class TareaTest {
     public void testAddTareaJPARepositoryInsertsTareaDatabase() {
         UsuarioRepository usuarioRepository = injector.instanceOf(UsuarioRepository.class);
         TareaRepository tareaRepository = injector.instanceOf(TareaRepository.class);
-        Usuario usuario = new Usuario("juangutierrez", "juangutierrez@gmail.com");
-        usuario = usuarioRepository.add(usuario);
+        Usuario usuario = usuarioRepository.findByLogin("juangutierrez");
         Tarea tarea = new Tarea(usuario, "Renovar DNI");
         tarea = tareaRepository.add(tarea);
         Logger.info("Número de tarea: " + Long.toString(tarea.getId()));
